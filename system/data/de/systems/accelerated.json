@@ -1,0 +1,166 @@
+{
+    "name": "Turbo Fate",
+    "identifier": "accelerated",
+    "types": {
+        "Aspects": [
+            {
+                "label": "Basis",
+                "entries": [
+                    {
+                        "name": "Konzept",
+                        "type": "aspect",
+                        "data": {
+                            "label": "Konzept"
+                        }
+                    },
+                    {
+                        "name": "Dilemma",
+                        "type": "aspect",
+                        "data": {
+                            "label": "Dilemma"
+                        }
+                    },
+                    {
+                        "name": "Beziehung",
+                        "type": "aspect",
+                        "data": {
+                            "label": "Beziehung"
+                        }
+                    },
+                    {
+                        "name": "weiterer Aspekt",
+                        "type": "aspect",
+                        "data": {
+                            "label": "weiterer Aspekt"
+                        }
+                    },
+                    {
+                        "name": "weiterer Aspekt",
+                        "type": "aspect",
+                        "data": {
+                            "label": "weiterer Aspekt"
+                        }
+                    }
+                ]
+            },
+            {
+                "label": "Optional",
+                "entries": [
+                    {
+                        "name": "Beziehung",
+                        "type": "aspect",
+                        "data": {
+                            "label": "Beziehung"
+                        }
+                    },
+                    {
+                        "name": "leerer Aspekt",
+                        "type": "aspect"
+                    }
+                ]
+            }
+        ],
+        "Consequences": [
+            {
+                "entries": [
+                    {
+                        "name": "leichte Konsequenz",
+                        "type": "consequence",
+                        "data": {
+                            "label": "Leicht",
+                            "icon": "2"
+                        }
+                    },
+                    {
+                        "name": "2te leichte Konsequenz (durch Fertigkeit)",
+                        "type": "consequence",
+                        "data": {
+                            "label": "Leicht",
+                            "icon": "2"
+                        },
+                        "flags": {
+                            "fatexcontinued": {
+                                "skillReferenceSettings": {
+                                    "conjunction": 0
+                                },
+                                "skillReferences": [
+                                    {
+                                        "skill": "Kraft",
+                                        "condition": 4,
+                                        "operator": 4
+                                    },
+                                    {
+                                        "skill": "Wille",
+                                        "condition": 4,
+                                        "operator": 4
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "name": "mittlere Konsequenz",
+                        "type": "consequence",
+                        "data": {
+                            "label": "Mittel",
+                            "icon": "4"
+                        }
+                    },
+                    {
+                        "name": "schwere Konsequenz",
+                        "type": "consequence",
+                        "data": {
+                            "label": "Schwer",
+                            "icon": "6"
+                        }
+                    }
+                ]
+            }
+        ],
+        "Skills": [
+            {
+                "columns": true,
+                "entries": [
+                    {
+                        "name": "Sorgfältig",
+                        "type": "skill"
+                    },
+                    {
+                        "name": "Scharfsinnig",
+                        "type": "skill"
+                    },
+                    {
+                        "name": "Tollkühn",
+                        "type": "skill"
+                    },
+                    {
+                        "name": "Kraftvoll",
+                        "type": "skill"
+                    },
+                    {
+                        "name": "Flink",
+                        "type": "skill"
+                    },
+                    {
+                        "name": "Tückisch",
+                        "type": "skill"
+                    }
+                ]
+            }
+        ],
+        "Stress": [
+            {
+                "entries": [
+                    {
+                        "name": "Stress",
+                        "type": "stress",
+                        "data": {
+                            "size": 3,
+                            "labelType": 0
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}

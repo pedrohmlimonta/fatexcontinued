@@ -1,0 +1,24 @@
+{{> "systems/fatexcontinued/templates/components/item-header.hbs" title="FAx.Item.Extra.EditItem" item=item}}
+
+{{> "systems/fatexcontinued/templates/item/settings/setting-input.hbs"
+    headline = "FAx.Item.Extra.Name"
+    field = item.name
+    fieldName = "name"
+    placeholder = "FAx.Item.Extra.Name"
+}}
+
+{{> "systems/fatexcontinued/templates/item/settings/setting-input.hbs"
+    headline = "FAx.Item.Extra.ShortDescription"
+    help = "FAx.Item.Extra.ShortDescriptionHelp"
+    fieldName = "system.shortDescription"
+    field = system.shortDescription
+}}
+
+{{> "systems/fatexcontinued/templates/item/settings/setting-editor.hbs"
+    headline = "FAx.Item.Extra.Description"
+    help = "FAx.Item.Extra.DescriptionHelp"
+    fieldName = "system.description"
+    field = enrichedDescription
+}}
+
+{{> "systems/fatexcontinued/templates/components/item-footer.hbs"}}

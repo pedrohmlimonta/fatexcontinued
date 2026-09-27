@@ -1,0 +1,84 @@
+name: Release
+
+# Publica o sistema quando uma release é publicada no GitHub (tag no formato vX.Y.Z).
+# Gera e anexa à release os arquivos usados pela instalação por manifesto:
+#   - system.json          -> https://github.com/<usuario>/<repo>/releases/latest/download/system.json
+#   - fatexcontinued.zip   -> https://github.com/<usuario>/<repo>/releases/download/<tag>/fatexcontinued.zip
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Instalar dependências
+        run: npm ci --no-audit --no-fund
+
+      - name: Atualizar versão e URLs do system.json
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+          REPO: ${{ github.repository }}
+          BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          node <<'EOF'
+          const fs = require("fs");
+          const tag = process.env.TAG;
+          const repo = process.env.REPO;
+          const version = tag.replace(/^v/, "");
+
+          if (!/^\d+\.\d+\.\d+([-+].+)?$/.test(version)) {
+            console.error(`A tag "${tag}" não é uma versão válida. Use o formato vX.Y.Z (ex.: v2.0.0).`);
+            process.exit(1);
+          }
+
+          const file = "system/system.json";
+          const manifest = JSON.parse(fs.readFileSync(file, "utf8"));
+          const base = `https://github.com/${repo}`;
+
+          manifest.version = version;
+          manifest.url = base;
+          manifest.bugs = `${base}/issues`;
+          const branch = process.env.BRANCH || "main";
+          manifest.readme = `${base}/blob/${branch}/README.md`;
+          manifest.changelog = `${base}/blob/${branch}/CHANGELOG.md`;
+          manifest.manifest = `${base}/releases/latest/download/system.json`;
+          manifest.download = `${base}/releases/download/${tag}/fatexcontinued.zip`;
+
+          fs.writeFileSync(file, JSON.stringify(manifest, null, 4) + "\n");
+          console.log(`system.json -> versão ${manifest.version}`);
+          console.log(`manifest: ${manifest.manifest}`);
+          console.log(`download: ${manifest.download}`);
+          EOF
+
+      - name: Compilar (produção)
+        run: npm run build:production
+
+      - name: Testes de fumaça
+        run: npm test
+
+      - name: Montar o zip do sistema
+        run: |
+          cd dist
+          zip -r ../fatexcontinued.zip . -x "*.DS_Store"
+          cd ..
+          cp dist/system.json system.json
+          unzip -l fatexcontinued.zip | tail -n 3
+
+      - name: Anexar artefatos à release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            system.json
+            fatexcontinued.zip

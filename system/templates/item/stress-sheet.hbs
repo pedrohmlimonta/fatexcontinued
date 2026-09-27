@@ -1,0 +1,110 @@
+{{> "systems/fatexcontinued/templates/components/item-header.hbs" title="FAx.Item.Stress.EditItem" item=item}}
+
+{{> "systems/fatexcontinued/templates/item/settings/setting-input.hbs"
+    headline = "FAx.Item.Stress.Name"
+    field = item.name
+    fieldName = "name"
+    placeholder = "FAx.Item.Stress.Name"
+}}
+
+<div class="fatex-setting">
+    <header class="fatex-headline">
+        <h3 class="fatex-headline__text">{{localize "FAx.Item.Stress.Size"}}</h3>
+    </header>
+
+    <div class="fatex-slider">
+        <input
+            class="fatex-js-setting-range-value fatex-slider__label"
+            type="text"
+            value="{{system.size}}"
+        />
+
+        <input
+            type="range"
+            class="fatex-js-setting-range-slider"
+            name="system.size"
+            data-dtype="Number"
+            value="{{system.size}}"
+            min="1"
+            max="32"
+        />
+    </div>
+</div>
+
+<div class="fatex-setting">
+    <header class="fatex-headline ">
+        <h3 class="fatex-headline__text">{{localize "FAx.Item.Stress.Boxes.Label"}}</h3>
+    </header>
+
+    <div class="fatex-radio-group">
+        <div
+            class="fatex-js-radio-button fatex-radio-button{{#if (eq 0 system.labelType)}} fatex-radio-button--active{{/if}}"
+            data-value="0"
+            data-name="system.labelType"
+            data-dtype="Number"
+        >
+            <img
+                class="fatex-radio-button__image"
+                alt="ascending"
+                src="systems/fatexcontinued/assets/ui/stress/label_preview_0.png"
+            >
+            <span class="fatex-radio-button__label">{{localize "FAx.Item.Stress.Type.Core"}}</span>
+        </div>
+
+        <div
+            class="fatex-js-radio-button fatex-radio-button{{#if (eq 1 system.labelType)}} fatex-radio-button--active{{/if}}"
+            data-value="1"
+            data-name="system.labelType"
+            data-dtype="Number"
+        >
+            <img
+                class="fatex-radio-button__image" 
+                lt="condensed"
+                src="systems/fatexcontinued/assets/ui/stress/label_preview_1.png"
+            >
+            <span class="fatex-radio-button__label">{{localize "FAx.Item.Stress.Type.Condensed"}}</span>
+        </div>
+
+        <div
+            class="fatex-js-radio-button fatex-radio-button{{#if (eq 2 system.labelType)}} fatex-radio-button--active{{/if}}"
+            data-value="2"
+            data-name="system.labelType"
+            data-dtype="Number"
+        >
+            <img
+                class="fatex-radio-button__image"
+                alt="custom"
+                src="systems/fatexcontinued/assets/ui/stress/label_preview_2.png"
+            >
+            <span class="fatex-radio-button__label">{{localize "FAx.Item.Stress.Type.Custom"}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="fatex-setting{{#if (ne 2 system.labelType)}} fatex-u-disabled{{/if}}">
+    <header class="fatex-headline">
+        <h3 class="fatex-headline__text">{{localize "FAx.Item.Stress.Boxes.Custom"}}</h3>
+    </header>
+
+    <label for="system.customLabel">
+        <input type="text" class="fatex-text-input" name="system.customLabel" value="{{system.customLabel}}"/>
+        <span class="fatex-text-input__setting-label">{{localize "FAx.Item.Stress.Boxes.CustomHelp"}}</span>
+    </label>
+</div>
+
+{{> "systems/fatexcontinued/templates/item/settings/setting-input.hbs"
+    headline = "FAx.Item.Stress.Description"
+    help = "FAx.Item.Stress.DescriptionHelp"
+    fieldName = "system.description"
+    field = system.description
+}}
+
+{{> "systems/fatexcontinued/templates/item/settings/setting-automation-skill-enable.hbs"
+    headline = "FAx.Item.Automation.Headline"
+}}
+
+{{> "systems/fatexcontinued/templates/item/settings/setting-automation-boxes.hbs"
+    headline = "FAx.Item.Automation.BoxesHeadline"
+}}
+
+{{> "systems/fatexcontinued/templates/components/item-footer.hbs"}}

@@ -1,0 +1,16 @@
+@import "abstract/variables";
+@import "abstract/mixins";
+
+@import "base/foundry-ui";
+@import "base/typography";
+
+@import "components/**/*.scss";
+@import "components/chat/item-card";
+
+@import "legacy/chat";
+
+@import "utils/disabled";
+@import "utils/effects";
+@import "utils/padding";
+@import "utils/position";
+@import "utils/sizing";

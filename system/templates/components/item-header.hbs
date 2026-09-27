@@ -1,0 +1,29 @@
+<form autocomplete="off" class="fatex-u-full-height {{cssClass}}">
+    <div class="fatex-desk">
+        {{!--HEADER--}}
+        <div class="fatex-header">
+            <div class="fatex-header__combine">
+                {{#if isOwnedBy}}
+                    <div></div>
+                {{else}}
+                    <div class="fatex-header__image">
+                        <img alt="{{item.name}}" data-edit="img" src="{{item.img}}"/>
+                    </div>
+                {{/if}}
+
+                <div class="fatex-header__name">
+                    <label class="fatex-header__label">
+                        {{#if isOwnedBy}}
+                            {{isOwnedBy}}
+                        {{else}}
+                            {{localize "FAx.Global.BaseItem"}}
+                        {{/if}}
+                    </label>
+                    <div class="fatex-header__title">{{localize title}}</div>
+                </div>
+            </div>
+
+            {{> "systems/fatexcontinued/templates/components/header-logo.hbs"}}
+        </div>
+
+        <div class="fatex-desk__content">

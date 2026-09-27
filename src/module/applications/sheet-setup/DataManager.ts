@@ -1,0 +1,31 @@
+import { SYSTEM_PATH } from "../../../constants";
+
+export class DataManager {
+    async getAvailableSystems() {
+        let lang = game.i18n.lang;
+        let response = await fetch(`${SYSTEM_PATH}/data/${lang}/systems.json`);
+
+        // Fallback to english systems
+        if (response.status !== 200) {
+            lang = "en";
+            response = await fetch(`${SYSTEM_PATH}/data/${lang}/systems.json`);
+        }
+
+        const availableSystems = await response.json();
+
+        return { lang, availableSystems };
+    }
+
+    async getSystems() {
+        const { lang, availableSystems } = await this.getAvailableSystems();
+
+        return Promise.all(
+            availableSystems.map(async (systemName: string) => await this.fetchSystemByName(lang, systemName)),
+        );
+    }
+
+    async fetchSystemByName(lang: string, systemName: string) {
+        const response = await fetch(`${SYSTEM_PATH}/data/${lang}/systems/${systemName}.json`);
+        return response.status === 200 ? await response.json() : {};
+    }
+}

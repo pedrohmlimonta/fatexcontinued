@@ -1,0 +1,22 @@
+{{> "systems/fatexcontinued/templates/components/item-header.hbs" title="FAx.Item.Reference.EditItem" item=item}}
+
+{{> "systems/fatexcontinued/templates/item/settings/setting-input.hbs"
+    headline = "FAx.Item.Reference.Name"
+    field = item.name
+    fieldName = "name"
+    placeholder = "FAx.Item.Reference.Name"
+}}
+
+{{> "systems/fatexcontinued/templates/item/settings/setting-input.hbs"
+    headline = "FAx.Item.Reference.Scene"
+    field = system.scene
+    fieldName = "system.scene"
+}}
+
+{{> "systems/fatexcontinued/templates/item/settings/setting-input.hbs"
+    headline = "FAx.Item.Reference.ID"
+    field = system.id
+    fieldName = "system.id"
+}}
+
+{{> "systems/fatexcontinued/templates/components/item-footer.hbs"}}

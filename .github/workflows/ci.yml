@@ -1,0 +1,34 @@
+name: CI
+
+# Verificação rápida a cada push/pull request: lint, tipos, build e testes de fumaça.
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Instalar dependências
+        run: npm ci --no-audit --no-fund
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Verificação de tipos
+        run: npm run typecheck
+
+      - name: Compilar (produção)
+        run: npm run build:production
+
+      - name: Testes de fumaça
+        run: npm test

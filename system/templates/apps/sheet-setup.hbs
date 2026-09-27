@@ -1,0 +1,81 @@
+{{> "systems/fatexcontinued/templates/components/app-header.hbs"
+    title="FAx.Apps.Setup.Title"
+}}
+
+<section>
+    <h2 class="fatex-section-heading fatex-section-heading--no-border">
+        {{localize "FAx.Apps.Setup.Manage"}}
+    </h2>
+
+    {{> "systems/fatexcontinued/templates/components/setup-actions.hbs" }}
+</section>
+
+<div class="fatex-sheet-setup__main">
+    <h2 class="fatex-section-heading fatex-section-heading--no-border">
+        {{localize "FAx.Apps.Setup.Setup"}}
+    </h2>
+
+    <div class="fatex-desk__tabs fatex-desk__tabs--vertical">
+        <nav class="fatex-js-vertical-tabs-navigation fatex-vertical-tabs-navigation">
+            {{#each systems as |system|}}
+                <a
+                    class="fatex-vertical-tabs-navigation__item"
+                    data-tab="{{system.identifier}}"
+                >
+                    {{system.name}}
+                </a>
+            {{/each}}
+        </nav>
+
+        <div class="fatex-js-vertical-tabs-content fatex-vertical-tabs-content">
+            {{#each systems as |system|}}
+                <div class="fatex-u-padding-std tab" data-tab="{{system.identifier}}">
+                    {{#each system.types as |type typeLabel|}}
+                        <section class="fatex-sheet-setup__section">
+                            <header class="fatex-headline">
+                                <h2 class="fatex-headline__text">{{typeLabel}}</h2>
+
+                                <div class="fatex-js-toggle-selection fatex-actions fatex-actions--setting">
+                                    <i class="fatex-actions__icon fatex-actions__icon--no-hide fa fa-sync"></i>
+                                    <span class="fatex-actions__text">
+                                        {{localize "FAx.Apps.Setup.Actions.Setup.ToggleSelection"}}
+                                    </span>
+                                </div>
+                            </header>
+
+                            <div class="fatex-sheet-setup__groups">
+                                {{#each type as |group groupIndex|}}
+                                    <div class="fatex-sheet-setup__group {{#if group.columns}}fatex-sheet-setup__group--columns{{/if}}">
+                                        {{#if group.label}}
+                                            <div class="fatex-sheet-setup__group-label fatex-js-toggle-selection">
+                                                <i class="fa fa-sync"></i>
+                                                <span>{{group.label}}</span>
+                                            </div>
+                                        {{/if}}
+
+                                        <div class="fatex-sheet-setup__options {{#if group.columns}}fatex-sheet-setup__options--columns{{/if}}">
+                                            {{#each group.entries as |entry entryIndex|}}
+                                                <label class="fatex-sheet-setup__option">
+                                                    <input class="fatex-option-checkbox" type="checkbox" data-document="{{JSONstringify entry}}">
+                                                    <span class="fatex-option-checkbox__box"></span>
+                                                    <span>{{entry.name}}</span>
+                                                </label>
+                                            {{/each}}
+                                        </div>
+                                    </div>
+                                {{/each}}
+                            </div>
+
+                            <div class="fatex-js-add-selection fatex-button fatex-button--square fatex-button--setup">
+                                <i class="fa fa-plus"></i>
+                                <span>{{localize "FAx.Apps.Setup.Actions.Setup.AddToSheet"}}</span>
+                            </div>
+                        </section>
+                    {{/each}}
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+
+{{> "systems/fatexcontinued/templates/components/app-footer.hbs"}}

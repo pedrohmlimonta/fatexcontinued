@@ -1,0 +1,27 @@
+{{#each aspects as |aspect aspectIndex|}}
+    <div class="fatex-js-sortable fatex-item" data-item-id="{{aspect._id}}">
+        <div class="fatex-u-pos-relative">
+            <div
+                class="fatex-js-aspect-input fatex-text-input"
+                data-placeholder="{{aspect.system.label}}"
+                contenteditable="true"
+                data-item-id="{{aspect._id}}"
+                data-focus-id="aspect-name-{{aspect._id}}"
+            >
+                {{{aspect.system.value}}}
+            </div>
+
+            <div class="fatex-actions fatex-actions--item">
+                <i class="fatex-js-item-sort fatex-actions__icon fa fa-sort"></i>
+                <i class="fatex-js-item-to-chat fatex-actions__icon fatex-actions__icon--no-hide fa fa-comment" data-item="{{aspect._id}}"></i>
+                <i class="fatex-js-aspect-settings fatex-actions__icon fa fa-cog" data-item="{{aspect._id}}"></i>
+                <i
+                    class="fatex-js-aspect-delete fatex-actions__icon fatex-u-delete fa fa-trash"
+                    data-item="{{aspect._id}}"
+                ></i>
+            </div>
+
+            <label class="fatex-text-input__label">{{aspect.system.label}}</label>
+        </div>
+    </div>
+{{/each}}

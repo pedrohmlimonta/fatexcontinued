@@ -1,0 +1,110 @@
+{
+    "id": "fatexcontinued",
+    "title": "FateX Continued",
+    "description": "A community continuation of FateX (Fate Extended) for Foundry VTT v14. Play Fate Core, Fate Accelerated, Fate Condensed and all their derivative systems with actor templates, custom stress tracks, consequences, conditions, stunts and extras.",
+    "version": "2.0.0",
+    "authors": [
+        {
+            "name": "Patrick Bauer",
+            "discord": "Daddi_"
+        },
+        {
+            "name": "Pedro (pedrohmlimonta)",
+            "url": "https://github.com/pedrohmlimonta"
+        }
+    ],
+    "scripts": ["system.js"],
+    "styles": [],
+    "languages": [
+        {
+            "lang": "en",
+            "name": "English",
+            "path": "languages/en.json"
+        },
+        {
+            "lang": "de",
+            "name": "Deutsch",
+            "path": "languages/de.json"
+        },
+        {
+            "lang": "es",
+            "name": "Español",
+            "path": "languages/es.json"
+        },
+        {
+            "lang": "fr",
+            "name": "Français",
+            "path": "languages/fr.json"
+        },
+        {
+            "lang": "it",
+            "name": "Italian",
+            "path": "languages/it.json"
+        },
+        {
+            "lang": "cn",
+            "name": "Chinese",
+            "path": "languages/cn.json"
+        },
+        {
+            "lang": "ko",
+            "name": "Korean",
+            "path": "languages/ko.json"
+        },
+        {
+            "lang": "sv",
+            "name": "Swedish",
+            "path": "languages/sv.json"
+        },
+        {
+            "lang": "pt-BR",
+            "name": "Português (Brasil)",
+            "path": "languages/pt-BR.json"
+        },
+        {
+            "lang": "ru",
+            "name": "Russian",
+            "path": "languages/ru.json"
+        }
+    ],
+    "documentTypes": {
+        "Actor": {
+            "character": {
+                "htmlFields": ["biography.value"]
+            },
+            "group": {}
+        },
+        "Item": {
+            "stress": {},
+            "aspect": {
+                "htmlFields": ["value", "description"]
+            },
+            "consequence": {
+                "htmlFields": ["value", "description"]
+            },
+            "skill": {
+                "htmlFields": ["description"]
+            },
+            "stunt": {
+                "htmlFields": ["description"]
+            },
+            "extra": {
+                "htmlFields": ["description"]
+            },
+            "actorReference": {},
+            "tokenReference": {}
+        }
+    },
+    "compatibility": {
+        "minimum": "14",
+        "verified": "14.368"
+    },
+    "socket": true,
+    "license": "LICENSE",
+    "url": "https://github.com/pedrohmlimonta/fatexcontinued",
+    "bugs": "https://github.com/pedrohmlimonta/fatexcontinued/issues",
+    "readme": "https://github.com/pedrohmlimonta/fatexcontinued/blob/main/README.md",
+    "changelog": "https://github.com/pedrohmlimonta/fatexcontinued/blob/main/CHANGELOG.md",
+    "manifest": "https://github.com/pedrohmlimonta/fatexcontinued/releases/latest/download/system.json",
+    "download": "https://github.com/pedrohmlimonta/fatexcontinued/releases/latest/download/fatexcontinued.zip"
+}

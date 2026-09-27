@@ -1,0 +1,18 @@
+# IDE files
+.idea
+.vscode
+
+# Dependencies
+node_modules
+
+# Reference files
+foundry-0.6.6.js
+foundry.js
+foundry8.js
+
+# Generated files
+system/fatex.css.map
+.sass-cache
+dist
+*.zip
+.DS_Store

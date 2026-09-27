@@ -1,0 +1,226 @@
+#chat-log,
+.chat-log,
+.chat-sidebar {
+    background: transparent !important;
+}
+
+.chat-message,
+li.chat-message {
+    background: $sheet-background !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    border-radius: 5px !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    margin: 10px 6px !important;
+    padding: 0 !important;
+    
+    &:first-child { margin-top: 6px !important; }
+    &:last-child { margin-bottom: 6px !important; }
+    
+    .message-header,
+    .message-content {
+        background: transparent !important;
+        border: none !important;
+    }
+    
+    &.whisper {
+        opacity: 0.8;
+        background: rgba($sheet-background, 0.95) !important;
+        border-color: rgba(128, 0, 128, 0.2) !important;
+        box-shadow: 0 1px 3px rgba(128, 0, 128, 0.1) !important;
+        
+        .message-header {
+            opacity: 0.9;
+        }
+    }
+}
+
+.chat-message::before,
+.chat-message::after {
+    display: none !important;
+}
+
+.fatex-chat {
+    font-size: 24px;
+    text-align: center;
+    background: $sheet-background;
+    padding: 5px;
+    border-radius: 3px;
+    
+    .fatex-headline__icon {
+        @include fatex-rank-indicator(24px);
+    }
+}
+
+.fatex-chat__headline-container {
+    position: relative;
+    width: 70%;
+    margin: $component-padding auto;
+}
+
+.fatex-rollWrapper {
+    position: relative;
+}
+
+@keyframes grow-shrink {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.3);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.fatex-roll {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: $fatex-primary-color;
+
+    .fatex-result {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+
+        &:hover {
+            .fatex-roll__history {
+                display: block;
+            }
+        }
+    }
+
+    &__history {
+        display: none;
+        position: absolute;
+        bottom: 100%;
+        text-align: left;
+        padding-bottom: $component-padding;
+        font-size: 10px;
+        color: white;
+        z-index: 200;
+
+        &:hover {
+            display: block;
+        }
+
+        div {
+            white-space: nowrap;
+            padding: 5px 10px;
+            background: rgba(0, 0, 0, 0.9);
+        }
+    }
+
+    .fatex-chat__roll--totalChanged & {
+        &__total {
+            animation-name: grow-shrink;
+            animation-duration: 1s;
+            animation-iteration-count: 1;
+            animation-timing-function: ease-in-out;
+        }
+    }
+
+    .fatex-chat__roll--reroll & {
+        .fatex-dice div {
+            animation-name: spin;
+            animation-duration: 1s;
+            animation-iteration-count: 5;
+            animation-timing-function: linear;
+        }
+    }
+
+    &__ladder {
+        font-size: 12px;
+        font-weight: 300;
+    }
+
+    &__total {
+        font-weight: 700;
+    }
+}
+
+.fatex-roll-actions {
+    display: flex;
+    gap: $component-padding;
+    margin: $component-padding;
+    text-align: center;
+
+    button {
+        i {
+            padding: 0;
+            margin: 0;
+        }
+
+        text-align: center;
+        border-radius: 5px;
+        width: 30px;
+        height: 30px;
+        line-height: 1;
+        background-color: transparent;
+        font-family: $primary-font;
+        font-weight: bold;
+        font-size: 14px;
+        white-space: nowrap;
+        border: 2px solid $fatex-primary-color;
+
+        &[data-action="increase"] {
+            text-indent: -2px;
+        }
+
+        &:disabled {
+            opacity: 0.5;
+        }
+    }
+}
+
+.fatex-dice {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    margin-bottom: $component-padding * 2;
+    font-family: "Fate Icons", sans-serif;
+
+    &--2d6-roll {
+        font-family: $primary-font;
+        width: 25%;
+
+        div {
+            display: block;
+            width: 24px;
+            height: 24px;
+            background: $fatex-primary-color;
+            border-radius: 5px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 24px;
+        }
+
+        label {
+            line-height: 24px;
+            width: 24px;
+            height: 24px;
+        }
+    }
+
+    div {
+        width: 24px;
+        height: 24px;
+        text-align: center;
+
+        &.fatex-dice__magic_die {
+            color: $magic-color;
+        }
+    }
+}

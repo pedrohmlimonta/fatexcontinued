@@ -1,0 +1,29 @@
+<form autocomplete="off" class="fatex-u-full-height {{cssClass}}">
+    <div class="fatex-desk">
+        {{!--HEADER--}}
+        {{> "systems/fatexcontinued/templates/components/header.hbs"}}
+
+        <div class="fatex-desk__content fatex-desk__content--actor-sheet">
+            <div class="fatex-desk__tabloid">
+                {{!--Tabs--}}
+                <div class="fatex-desk__tabs fatex__tabs">
+                    <div class="fatex-tabs-content">
+                        {{!--Bio--}}
+                        <div class="fatex__tabs__tab fatex__tabs__tab--bio">
+                            <div class="fatex__tabs__tab__content">
+                                {{> "systems/fatexcontinued/templates/actor/tabs/bio.hbs"}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{> "systems/fatexcontinued/templates/components/copyright.hbs"}}
+            </div>
+
+            {{!--Sidebar--}}
+            <div class="fatex-desk__sidebar">
+                {{> "systems/fatexcontinued/templates/components/artwork.hbs"}}
+            </div>
+        </div>
+    </div>
+</form>

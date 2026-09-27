@@ -1,0 +1,283 @@
+{
+    "name": "Condensed",
+    "identifier": "condensed",
+    "types": {
+        "Aspects": [
+            {
+                "label": "Basis",
+                "entries": [
+                    {
+                        "name": "Konzept",
+                        "type": "aspect",
+                        "data": {
+                            "label": "Konzept"
+                        }
+                    },
+                    {
+                        "name": "Dilemma",
+                        "type": "aspect",
+                        "data": {
+                            "label": "Dilemma"
+                        }
+                    },
+                    {
+                        "name": "Beziehung",
+                        "type": "aspect",
+                        "data": {
+                            "label": "Beziehung"
+                        }
+                    },
+                    {
+                        "name": "weiterer Aspekt",
+                        "type": "aspect",
+                        "data": {
+                            "label": "weiterer Aspekt"
+                        }
+                    },
+                    {
+                        "name": "weiterer Aspekt",
+                        "type": "aspect",
+                        "data": {
+                            "label": "weiterer Aspekt"
+                        }
+                    }
+                ]
+            },
+            {
+                "label": "Optional",
+                "entries": [
+                    {
+                        "name": "Beziehung",
+                        "type": "aspect",
+                        "data": {
+                            "label": "Beziehung"
+                        }
+                    },
+                    {
+                        "name": "leerer Aspekt",
+                        "type": "aspect"
+                    }
+                ]
+            }
+        ],
+        "Consequences": [
+            {
+                "entries": [
+                    {
+                        "name": "leichte Konsequenz",
+                        "type": "consequence",
+                        "data": {
+                            "label": "Leicht",
+                            "icon": "2"
+                        }
+                    },
+                    {
+                        "name": "2te leichte Konsequenz (durch Fertigkeit)",
+                        "type": "consequence",
+                        "data": {
+                            "label": "Leicht",
+                            "icon": "2"
+                        },
+                        "flags": {
+                            "fatexcontinued": {
+                                "skillReferenceSettings": {
+                                    "conjunction": 0
+                                },
+                                "skillReferences": [
+                                    {
+                                        "skill": "Kraft",
+                                        "condition": 4,
+                                        "operator": 4
+                                    },
+                                    {
+                                        "skill": "Wille",
+                                        "condition": 4,
+                                        "operator": 4
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "name": "mittlere Konsequenz",
+                        "type": "consequence",
+                        "data": {
+                            "label": "Mittel",
+                            "icon": "4"
+                        }
+                    },
+                    {
+                        "name": "schwere Konsequenz",
+                        "type": "consequence",
+                        "data": {
+                            "label": "Schwer",
+                            "icon": "6"
+                        }
+                    }
+                ]
+            }
+        ],
+        "Skills": [
+            {
+                "columns": true,
+                "entries": [
+                    {
+                        "name": "Athletik",
+                        "type": "skill",
+                        "data": {
+                            "description": "Eine Einschätzung des körperlichen Potenzials. Athletikstunts konzentrieren sich auf Bewegung - Laufen, Springen, Parkour - und das Ausweichen von Angriffen."
+                        }
+                    },
+                    {
+                        "name": "Bildung",
+                        "type": "skill",
+                        "data": {
+                            "description": "Weltliches, alltägliches menschliches Wissen und Bildung, einschließlich Geschichte, Wissenschaft und Medizin. Bildungs Stunts beziehen sich oft auf spezielle Wissensgebiete und medizinische Fähigkeiten."
+                        }
+                    },
+                    {
+                        "name": "Charisma",
+                        "type": "skill",
+                        "data": {
+                            "description": "Verbindungen zu anderen aufbauen und zusammenarbeiten. Wo Provokation Manipulation bedeutet, steht Charisma für Aufrichtigkeit, Vertrauen und guten Willen. Mit Charismastunts kannst du die Menge beeinflussen, Beziehungen verbessern oder Kontakte knüpfen."
+                        }
+                    },
+                    {
+                        "name": "Diebeskunst",
+                        "type": "skill",
+                        "data": {
+                            "description": "Das Wissen und die Fähigkeit, Sicherheitssysteme zu umgehen, Taschendiebstähle zu begehen und allgemein Verbrechen zu begehen. Diebeskunststunts geben Boni für die verschiedenen Phasen der Begehung eines Verbrechens, von der Planung bis zur Ausführung und Flucht."
+                        }
+                    },
+                    {
+                        "name": "Empathie",
+                        "type": "skill",
+                        "data": {
+                            "description": "Die Fähigkeit, die Stimmung und die Absichten einer Person genau zu beurteilen. Bei Empathiestunts kann es darum gehen, eine Menschenmenge einzuschätzen, Lügen aufzuspüren oder anderen zu helfen, sich von psychischen Folgen zu erholen."
+                        }
+                    },
+                    {
+                        "name": "Fahren",
+                        "type": "skill",
+                        "data": {
+                            "description": "Kontrolliere Fahrzeuge unter den schwierigsten Bedingungen, führe abgefahrene Manöver durch und hole einfach das Beste aus deinem Fahrzeug heraus. Fahr-Stunts können charakteristische Manöver sein, ein eigenes Spezialfahrzeug oder die Fähigkeit, unter bestimmten Umständen die Fähigkeit Fahren anstelle einer Fertigkeit wie Diebstahl oder Bildung einzusetzen."
+                        }
+                    },
+                    {
+                        "name": "Handwerk",
+                        "type": "skill",
+                        "data": {
+                            "description": "Die Fähigkeit, Maschinen herzustellen oder zu zerstören, Apparate zu bauen und MacGyver-ähnliche Kunststücke zu vollbringen. Handwerksstunts sorgen dafür, dass du das Dingsbums zur Verfügung hast, welches du brauchst. Sie geben Boni auf das Bauen und Zerbrechen von Dingen und rechtfertigen unter bestimmten Umständen den Einsatz von Handwerksfertigkeiten anstelle von Fertigkeiten wie Diebstahl oder Bildung."
+                        }
+                    },
+                    {
+                        "name": "Kontakte",
+                        "type": "skill",
+                        "data": {
+                            "description": "Das Wissen um die richtigen Leute und Verbindungen, die dir helfen können. Kontakte geben dir Verbündete und ein Informationsnetzwerk an die Hand, egal wo auf der Welt du bist."
+                        }
+                    },
+                    {
+                        "name": "Kraft",
+                        "type": "skill",
+                        "data": {
+                            "description": "Rohe Kraft und Ausdauer. Mit Kraftstunts kannst du übermenschliche Leistungen vollbringen, beim Ringen dein Gewicht in die Waagschale werfen und körperliche Konsequenzen abwehren. Außerdem gibt dir eine hohe Kraftstufe mehr Plätze für körperlichen Stress oder Konsequenzen."
+                        }
+                    },
+                    {
+                        "name": "Kämpfen",
+                        "type": "skill",
+                        "data": {
+                            "description": "Die Fähigkeit, im Nahkampf mit Waffen oder Fäusten zu brillieren. Zu den Kampfstunts gehören besondere Waffen und Spezialtechniken."
+                        }
+                    },
+                    {
+                        "name": "Nachforschung",
+                        "type": "skill",
+                        "data": {
+                            "description": "Bewusstes, sorgfältiges Studieren und Rätseln. Nutzen Sie dies, um Hinweise zusammenzufügen oder einen Tatort zu rekonstruieren. Nachforschungsstunts helfen Ihnen, brillante Schlussfolgerungen zu ziehen oder Informationen schneller zusammenzufügen."
+                        }
+                    },
+                    {
+                        "name": "Provozieren",
+                        "type": "skill",
+                        "data": {
+                            "description": "Die Fähigkeit, Menschen dazu zu bringen, so zu handeln, wie man es möchte. Das ist grob und manipulativ, und keine positive Interaktion. Mit Provokationsstunts kannst du Gegner zu waghalsigen Aktionen zwingen, Aggressionen auf dich ziehen oder Feinde erschrecken (vorausgesetzt, sie können Angst empfinden)."
+                        }
+                    },
+                    {
+                        "name": "Ressourcen",
+                        "type": "skill",
+                        "data": {
+                            "description": "Zugang zu materiellen Dingen, nicht nur zu Geld oder direktem Besitz. Es kann deine Fähigkeit widerspiegeln, dir von Freunden etwas zu leihen oder in der Waffenkammer einer Organisation zu stöbern. Ressourcenstunts ermöglichen es dir, Ressourcen anstelle von Charsisma oder Kontakte zu verwenden oder geben dir zusätzliche kostenlose Einsätze, wenn du dafür bezahlst ."
+                        }
+                    },
+                    {
+                        "name": "Schießen",
+                        "type": "skill",
+                        "data": {
+                            "description": "Alle Formen des Fernkampfes, ob mit Pistolen, Wurfmessern oder Pfeil und Bogen. Mit Schießstunts kannst du gezielte Schüsse abgeben, schnell ziehen oder immer eine Waffe griffbereit haben."
+                        }
+                    },
+                    {
+                        "name": "Schleichen",
+                        "type": "skill",
+                        "data": {
+                            "description": "Bleibe ungesehen oder ungehört und flieht, wenn du dich verstecken musst. Mit Schleichstunts kannst du in der Öffentlichkeit verschwinden, in Menschenmengen untertauchen oder dich ungesehen durch Schatten bewegen."
+                        }
+                    },
+                    {
+                        "name": "Täuschung",
+                        "type": "skill",
+                        "data": {
+                            "description": "Die Fähigkeit, überzeugend und souverän zu lügen und zu betrügen. Täuschungsstunts können deine Fähigkeit verbessern, eine bestimmte Art von Lügen zu erzählen oder falsche Identitäten zu erfinden."
+                        }
+                    },
+                    {
+                        "name": "Wahrnehmung",
+                        "type": "skill",
+                        "data": {
+                            "description": "Die Fähigkeit, Details im Moment zu erkennen, Probleme zu erkennen, bevor sie auftreten, und generell scharfsinnig zu sein. Sie steht im Gegensatz zu Nachforschen, wo es um langsame, bewusste Beobachtung geht. Wahrnehmungsstunts schärfen deine Sinne, verbessern deine Reaktionszeit oder machen es dir schwerer, sich anzuschleichen."
+                        }
+                    },
+                    {
+                        "name": "Wissen",
+                        "type": "skill",
+                        "data": {
+                            "description": "Spezialisiertes, geheimnisvolles Wissen, das nicht in den Bereich der Bildung fällt, einschließlich übernatürlicher Themen der einen oder anderen Art. Hier passieren die merkwürdigen Dinge. Wissensstunts unterstützen oft praktische Anwendungen deines arkanen Wissens, wie zum Beispiel das Wirken von Zaubern. In manchen Szenarien wird die Wissensfertigkeit abgeschafft und durch eine andere Fertigkeit ersetzt oder mit Bildung kombiniert."
+                        }
+                    },
+                    {
+                        "name": "Wille",
+                        "type": "skill",
+                        "data": {
+                            "description": "Mentale Stärke, die Fähigkeit, Versuchungen zu überwinden und Traumata zu überstehen. Mit Wille kannst du mentale Konsequenzen ignorieren, den mentalen Qualen seltsamer Kräfte widerstehen und dich gegen Feinde behaupten, die dich provozieren. Außerdem gibt dir ein hoher Willenswert mehr Felder für mentalen Stress oder Konsequenzen."
+                        }
+                    }
+                ]
+            }
+        ],
+        "Stress": [
+            {
+                "entries": [
+                    {
+                        "name": "körperlicher Stress",
+                        "type": "stress",
+                        "data": {
+                            "size": 4,
+                            "labelType": 0
+                        }
+                    },
+                    {
+                        "name": "geistiger Stress",
+                        "type": "stress",
+                        "data": {
+                            "size": 4,
+                            "labelType": 0
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+}

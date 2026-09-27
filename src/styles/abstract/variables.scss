@@ -1,0 +1,24 @@
+// Spacing
+$component-padding: 10px;
+
+// Colors
+$primary-color: rgba(47, 53, 66, 1);
+
+$sheet-background: rgb(241, 242, 246);
+$message-background: transparentize($primary-color, 0.7);
+
+$primary-text-color: #191813;
+$light-text-color: #fff;
+
+$caution-color: rgb(242, 22, 40);
+$magic-color: rgb(160, 25, 31);
+$shadow-color: rgb(160, 160, 160);
+
+// Fonts
+$primary-font: "Montserrat", sans-serif;
+
+// Custom Property Hooks
+$fatex-header-color: var(--fatex-header-color, $primary-color);
+$fatex-header-text-color: var(--fatex-header-text-color, $light-text-color);
+
+$fatex-primary-color: var(--fatex-primary-color, $primary-color);

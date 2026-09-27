@@ -1,0 +1,21 @@
+.fatex__inline_sheet--hidden {
+    opacity: 0.3;
+}
+
+.fatex__inline_sheet--defeated {
+    opacity: 0.5;
+}
+
+.fatex__inline_sheet__headline {
+    display: flex;
+    align-items: center;
+    clip-path: none;
+
+    .fatex__inline_sheet--defeated & {
+        color: $caution-color;
+    }
+}
+
+.fatex__inline_sheet__content {
+    display: grid;
+}

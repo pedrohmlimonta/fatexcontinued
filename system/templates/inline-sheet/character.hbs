@@ -1,0 +1,50 @@
+<form autocomplete="off" class="fatex-u-full-height" data-id="{{referenceID}}">
+    <div class="fatex__inline_sheet{{#if defeated}} fatex__inline_sheet--defeated{{/if}}{{#if hidden}} fatex__inline_sheet--hidden{{/if}}">
+        <h2 class="fatex__inline_sheet__headline fatex-headline fatex-headline--inline-sheet">
+            <img class="fatex-headline__image" alt="{{actor.name}}" data-edit="img" src="{{actor.img}}" />
+            <span class="fatex-headline__text">{{actor.name}}</span>
+            {{#unless isToken}}
+                <input
+                    class="fatex-text-input fatex-text-input--headline"
+                    name="system.fatepoints.current"
+                    type="number"
+                    min="0"
+                    max="99"
+                    value="{{actor.system.fatepoints.current}}"
+                >
+            {{/unless}}
+        </h2>
+
+        <nav class="fatex-js-tabs-navigation fatex-inline-tabs">
+            <a class="fatex-inline-tabs__item" data-tab="aspects">
+                {{~localize "FAx.Sheet.Aspects"~}}
+            </a>
+            <a class="fatex-inline-tabs__item" data-tab="consequences">
+                {{~localize "FAx.Sheet.Consequences"~}}
+            </a>
+            <a class="fatex-inline-tabs__item" data-tab="stress">
+                {{~localize "FAx.Sheet.StressTracks"~}}
+            </a>
+        </nav>
+
+        <div class="fatex-js-tab-content fatex__inline_sheet__content">
+            <section class="tab" data-tab="aspects">
+                <div class="fatex-desk__aspects fatex-desk__aspects--inline">
+                    {{> "systems/fatexcontinued/templates/components/aspects.hbs"}}
+                </div>
+            </section>
+
+            <section class="tab" data-tab="consequences">
+                <div class="fatex-desk__consequences fatex-desk__consequences--inline">
+                    {{> "systems/fatexcontinued/templates/components/consequences.hbs"}}
+                </div>
+            </section>
+
+            <section class="tab" data-tab="stress">
+                <div class="fatex-item-grid fatex-u-padding-std">
+                    {{> "systems/fatexcontinued/templates/components/stress.hbs"}}
+                </div>
+            </section>
+        </div>
+    </div>
+</form>

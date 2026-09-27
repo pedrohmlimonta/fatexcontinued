@@ -1,0 +1,285 @@
+{
+    "FateX": "FateX",
+    "FAx": {
+        "name": "FateX",
+        "Global": {
+            "Ladder": {
+                "+8": "Legendary",
+                "+7": "Epic",
+                "+6": "Fantastic",
+                "+5": "Superb",
+                "+4": "Great",
+                "+3": "Good",
+                "+2": "Fair",
+                "+1": "Average",
+                "+0": "Mediocre",
+                "-1": "Poor",
+                "-2": "Terrible",
+                "-3": "Catastrophic",
+                "-4": "Horrifying",
+                "-5": "Pathetic"
+            },
+            "Actions": {
+                "Configure": "Configure",
+                "Delete": "Delete",
+                "Duplicate": "Duplicate",
+                "Sort": "Sort",
+                "Create": "Create empty actor",
+                "Choose": "Choose template"
+            },
+            "BaseItem": "Base item"
+        },
+        "Sheet": {
+            "Name": "Name",
+            "Description": "Description",
+            "FatePoints": "Fate Points",
+            "Aspects": "Aspects",
+            "Consequences": "Consequences",
+            "Skills": "Skills",
+            "Stunts": "Stunts",
+            "Extras": "Extras",
+            "Bio": "Bio",
+            "Artwork": "Artwork",
+            "StressTracks": "Stress tracks",
+            "Tabs": {
+                "SkillsStunts": "Skills & Stunts",
+                "Skills": "Skills",
+                "Stunts": "Stunts",
+                "Extras": "Extras",
+                "Bio": "Bio"
+            },
+            "Buttons": {
+                "EditMode": "Edit Mode",
+                "SheetSetup": "Sheet Setup"
+            },
+            "Stress": {
+                "Add": "Add stress track"
+            },
+            "Messages": {
+                "EmptyActor": "It looks like your character doesn't have any content yet. You can change this in the <strong>Edit Mode</strong> or the <strong>Sheet Setup</strong>. The buttons to toggle the edit mode or open the setup can be found in the header bar."
+            }
+        },
+        "ChatCard": {
+            "MessageNotFound": "Message not found - can't update the chosen message.",
+            "NoGMConnected": "A GM must be connected to the game to update the chosen message.",
+            "History": {
+                "Reroll": "rerolled (was {previous})",
+                "Increase": "added +2"
+            }
+        },
+        "Item": {
+            "Stress": {
+                "Name": "Stress track label",
+                "EditItem": "Edit Stress Track",
+                "Size": "Number of boxes",
+                "Description": "Description",
+                "DescriptionHelp": "The description will be shown inside the stress track area.",
+                "Boxes": {
+                    "Label": "Box label style",
+                    "Custom": "Custom box labels",
+                    "CustomHelp": "Enter space-separated list of unicode characters. E.g. \"2 4 6 ☀\"."
+                },
+                "Type": {
+                    "Core": "Core",
+                    "Condensed": "Condensed",
+                    "Custom": "Blank / Custom"
+                }
+            },
+            "Aspect": {
+                "EditItem": "Edit Aspect",
+                "Value": "Text",
+                "Description": "Description",
+                "DescriptionHelp": "Is only displayed when sending to chat",
+                "Label": "Label"
+            },
+            "Consequence": {
+                "EditItem": "Edit Consequence",
+                "Value": "Text",
+                "Description": "Description",
+                "DescriptionHelp": "Is only displayed when sending to chat",
+                "Label": "Label",
+                "LabelHelp": "A label to describe the severity, like \"Mild\" or \"Severe\".",
+                "Icon": "Icon",
+                "IconHelp": "Normally a number like 2, 4, 6 or 8. Displayed on the left.",
+                "Type": {
+                    "Label": "Variant",
+                    "Condition": "Condition",
+                    "Consequence": "Consequence"
+                }
+            },
+            "Skill": {
+                "Name": "Skill name",
+                "EditItem": "Edit Skill",
+                "Rank": "Rank",
+                "Description": "Description",
+                "DescriptionHelp": "Is only displayed when sending to chat",
+                "Options": {
+                    "Headline": "Options",
+                    "IsMagicSkill": "Magic Skill",
+                    "IsMagicSkillHelp": "If checked, this skills rank will be used to determine the number of magic dice to roll. Hold shift while rolling a skill to activate this feature."
+                },
+                "Roll": {
+                    "MultipleMagicSkills": "Multiple magic skills found ({skills}). Using the first one to roll.",
+                    "NoMagicSkills": "No magic skill found. Please add a magic skill to your character sheet and roll again.",
+                    "MagicSkillTooLow": "The magic skill rank is zero or less. Please increase the rank to roll magic dice."
+                }
+            },
+            "Stunt": {
+                "Name": "Stunt title",
+                "EditItem": "Edit Stunt",
+                "Description": "Description",
+                "DescriptionHelp": "Long description for this stunt",
+                "ShortDescription": "Short Description",
+                "ShortDescriptionHelp": "Short description for this stunt"
+            },
+            "Extra": {
+                "Name": "Extra title",
+                "EditItem": "Edit Extra",
+                "Description": "Description",
+                "DescriptionHelp": "Long description for this extra",
+                "ShortDescription": "Short Description",
+                "ShortDescriptionHelp": "Short description for this extra"
+            },
+            "Reference": {
+                "EditItem": "Edit Reference",
+                "Name": "Reference name",
+                "ID": "ID",
+                "Scene": "Scene"
+            },
+            "Automation": {
+                "Headline": "Automation",
+                "BoxesHeadline": "Box Automation",
+                "Description": "There are no skill conditions set yet. Please add one or more skill conditions to enable automation features.",
+                "AddSkillRef": "Add skill condition",
+                "DisableUntil": "Disable until",
+                "BoxesIf": "box(es) if",
+                "MultipleConditions": "Enable automation if",
+                "MultipleConditionsMatches": "condition matches",
+                "Actions": {
+                    "Box": {
+                        "ADD": "Add",
+                        "REMOVE": "Remove"
+                    }
+                },
+                "Conjunctions": {
+                    "AND": "every",
+                    "OR": "any"
+                },
+                "Operators": {
+                    "OPERATOR_EQUALS": "equals",
+                    "OPERATOR_NOT_EQUALS": "doesn't equal",
+                    "OPERATOR_GT": "is greater than",
+                    "OPERATOR_LT": "is less than",
+                    "OPERATOR_GTE": "is greater than or equals",
+                    "OPERATOR_LTE": "is less than or equals"
+                }
+            }
+        },
+        "Dialog": {
+            "ReferenceRemove": "Remove reference",
+            "ReferenceRemoveText": "Do you really want to <strong>permanently</strong> remove this reference?",
+            "DocumentDelete": "Delete",
+            "DocumentDeleteText": "Do you really want to <strong>permanently</strong> delete this entity?",
+            "ActorClear": "Clear component",
+            "ActorClearText": "Do you really want to <strong>permanently</strong> delete all this actors components <strong>and their content</strong> of the chosen type?",
+            "Confirm": "Confirm",
+            "Cancel": "Cancel"
+        },
+        "Apps": {
+            "Setup": {
+                "Title": "Sheet Setup",
+                "Manage": "Manage",
+                "Setup": "Setup (Presets)",
+                "Actions": {
+                    "Clear": {
+                        "Aspects": "Clear aspects",
+                        "Consequences": "Clear consequences",
+                        "Skills": "Clear skills",
+                        "Stress": "Clear stress tracks",
+                        "Everything": "Clear everything"
+                    },
+                    "Setup": {
+                        "AddToSheet": "Add selected to sheet",
+                        "ToggleSelection": "Toggle selection"
+                    }
+                }
+            }
+        },
+        "Settings": {
+            "Templates": {
+                "Title": "Character sheet templates",
+                "Hint": "Allows you to choose how character sheets will look like for new characters.",
+                "Button": "FateX Templates",
+                "New": "New template",
+                "Copy": "Copy",
+                "App": {
+                    "Title": "Configure Templates",
+                    "Label": "Settings",
+                    "CreateNew": "Create new template",
+                    "Help": "There are no configured templates yet.<br />To add a new template, click on the <strong>Create new template</strong> button (also available in the header bar)."
+                }
+            },
+            "System": {
+                "Alpha": {
+                    "Name": "Enable alpha features",
+                    "Hint": "This setting enables experimental FateX alpha features. Alpha features are subject to change."
+                }
+            },
+            "autoUpdateTokenName": {
+                "Name": "Automatically update prototype token name",
+                "Hint": "Automatically updates the prototype token name when an actors name is changed (if both were identical)."
+            },
+            "magicSystemEnabled": {
+                "Name": "Enable the magic system from Fate Core Unleashed",
+                "Hint": "This will add a magic skill to the character sheet and allow you to use magic dice."
+            },
+            "enable2d6RollMode": {
+                "Name": "Enable 2d6 roll mode",
+                "Hint": "This will enable the 2d6 (1d6 - 1d6) roll mode for all future rolls."
+            }
+        },
+        "Template": {
+            "Picker": {
+                "Title": "Choose Template",
+                "Label": "Templates",
+                "Configuration": "Configuration",
+                "Empty": "Empty actor",
+                "CreateEmpty": "Empty actor",
+                "Or": "or",
+                "Help": "To add new templates, click on the <strong>Configuration</strong> button below (also available in the header bar).",
+                "Explain": "Templates are a great way to have different sheets for different kinds of actors. We suggest using <strong>different templates</strong> for PCs, NPCs, and Mooks, as all of them have <strong>different sheet requirements</strong>."
+            }
+        },
+        "ActorGroups": {
+            "New": "New group",
+            "Notifications": {
+                "ManualOnly": "This groups actors are managed automatically. If you want to manually add actors, change the groups type to \"manual\"."
+            }
+        },
+        "Sheets": {
+            "Reference": "Reference Sheet"
+        },
+        "Migration": {
+            "Begin": "FateX Continued is copying the data of the original FateX system (flags and settings) into this world. Please do not close the world until it is finished.",
+            "Complete": "FateX Continued: world migration finished.",
+            "CompleteWithErrors": "FateX Continued: world migration finished with errors. Check the browser console (F12) for details.",
+            "GMOnly": "Only a GM can migrate the world."
+        }
+    },
+    "TYPES": {
+        "Actor": {
+            "character": "Character",
+            "group": "Group"
+        },
+        "Item": {
+            "stress": "Stress track",
+            "aspect": "Aspect",
+            "consequence": "Consequence",
+            "skill": "Skill",
+            "stunt": "Stunt",
+            "extra": "Extra",
+            "actorReference": "Actor reference",
+            "tokenReference": "Token reference"
+        }
+    }
+}

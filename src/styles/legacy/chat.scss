@@ -1,0 +1,58 @@
+.fatex__headline {
+    background: $fatex-primary-color;
+    color: var(--fatex-light-text-color, $light-text-color);
+    padding: $component-padding*0.5 $component-padding * 2 $component-padding*0.5 $component-padding * 2;
+    position: relative;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 13px;
+    box-shadow: 1px 1px 1px $shadow-color;
+
+    &::before {
+        @include cutout-top-left;
+    }
+
+    &::after {
+        @include cutout-bottom-right;
+    }
+}
+
+.fatex__chat__headline__wrapper {
+    width: 70%;
+    margin: auto;
+    position: relative;
+    margin-bottom: $component-padding;
+    margin-top: $component-padding;
+}
+
+.fatex__chat__headline__icon {
+    @include fatex-rank-indicator(24px);
+}
+
+.fatex__chat__dice {
+    width: 50%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: $component-padding * 2;
+}
+
+.fatex__chat__die {
+    font-family: "Fate Icons", sans-serif;
+    font-size: 24px;
+    color: $fatex-primary-color;
+}
+
+.fatex__chat__total {
+    text-align: center;
+    font-weight: 700;
+    font-size: 26px;
+}
+
+.fatex__chat__ladder {
+    color: $fatex-primary-color;
+    font-weight: 300;
+    font-size: 12px;
+    display: block;
+}
