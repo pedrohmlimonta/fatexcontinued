@@ -6,7 +6,17 @@
                     class="fatex-js-sortable fatex-headline fatex-headline--fixed-icon"
                     data-item-id="{{extra._id}}"
                 >
-                    <h3 class="fatex-headline__text">{{extra.name}}</h3>
+                    <h3 class="fatex-headline__text">
+                        {{~#if extra.rollInfo~}}
+                            <span
+                                class="fatex-js-extra-roll fatex-extra__name--rollable"
+                                data-item="{{extra._id}}"
+                                title="{{extra.rollInfo.title}}"
+                            >{{extra.name}}</span>
+                        {{~else~}}
+                            {{extra.name}}
+                        {{~/if~}}
+                    </h3>
 
                     <div class="fatex-actions fatex-actions--headline">
                         <i class="fatex-js-item-sort fatex-actions__icon fa fa-sort"></i>
@@ -16,6 +26,25 @@
                         <i class="fatex-js-item-collapse fatex-actions__icon fatex-actions__icon--no-hide fa fa-chevron-up{{#if extra.system.collapsed}} fatex-actions__icon--reverse{{/if}}" data-item="{{extra._id}}"></i>
                     </div>
                 </header>
+
+                {{#if extra.rollInfo}}
+                    <div
+                        class="fatex-js-extra-roll fatex-extra-roll{{#unless extra.rollInfo.found}} fatex-extra-roll--missing{{/unless}}"
+                        data-item="{{extra._id}}"
+                        title="{{extra.rollInfo.title}}"
+                    >
+                        <i class="fatex-extra-roll__icon fas fa-dice"></i>
+                        <span class="fatex-extra-roll__skill">{{extra.rollInfo.skill}}</span>
+                        {{#if extra.rollInfo.found}}
+                            <span class="fatex-extra-roll__rank">{{extra.rollInfo.rank}}</span>
+                        {{else}}
+                            <span class="fatex-extra-roll__missing">{{localize "FAx.Item.Extra.Roll.Missing"}}</span>
+                        {{/if}}
+                        {{#if extra.rollInfo.bonus}}
+                            <span class="fatex-extra-roll__bonus{{#if extra.rollInfo.isPenalty}} fatex-extra-roll__bonus--negative{{/if}}">{{extra.rollInfo.bonus}}</span>
+                        {{/if}}
+                    </div>
+                {{/if}}
 
                 {{#unless extra.system.collapsed}}
                     {{#if extra.system.description}}

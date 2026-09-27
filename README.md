@@ -37,9 +37,27 @@ Para repetir a migração manualmente (como mestre, no console do navegador — 
 CONFIG.FateX.migrateWorld({ force: true })
 ```
 
+## Extras ligados a perícias
+
+Um extra pode ser ligado a uma perícia do personagem e ter um bônus (ou penalidade) próprio na rolagem:
+
+1. Na ficha, aba **Extras**, ligue o **Modo de Edição** (botão no topo da janela) e clique na engrenagem do extra
+   (ao criar um extra novo, a configuração já abre sozinha).
+2. Em **Perícia ligada**, escolha a perícia. Em **Bônus ou penalidade na rolagem**, escolha de -4 a +4.
+3. O extra passa a mostrar, abaixo do nome, a perícia que rola, o nível dela e o bônus. **Clique no nome do extra
+   ou nessa linha** para rolar — igual a clicar numa perícia (Shift rola os dados mágicos, o modo 2d6 e o Dice So
+   Nice continuam valendo). No modo de edição da ficha, só a linha rola.
+4. A carta no chat mostra a perícia e, logo abaixo, o extra e o bônus dele. O bônus já entra no total, e o +2 e o
+   rolar de novo continuam funcionando.
+
+A perícia é guardada pelo nome (como nas automações de perícias), então o extra funciona em qualquer personagem que
+tenha uma perícia com esse nome. Se o personagem não tiver, a ficha avisa ("não existe nesta ficha") e o clique não
+rola.
+
 ## O que mudou em relação ao FateX 1.5.4
 
 - Compatível com o Foundry VTT v14.368 (compatibilidade mínima: v14).
+- Extras podem ser ligados a uma perícia, com bônus ou penalidade, e rolados direto da ficha (veja acima).
 - Novo id `fatexcontinued`: caminhos, flags, configurações e canal de socket foram renomeados.
 - `template.json` (depreciado no v14) foi substituído por `documentTypes` no `system.json` + *TypeDataModels*,
   mantendo exatamente a mesma estrutura de dados.

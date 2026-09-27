@@ -138,6 +138,11 @@ const utils = {
     objectsEqual,
     isNewerVersion,
     randomID,
+    escapeHTML: (value) =>
+        String(value ?? "").replace(
+            /[&<>"']/g,
+            (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#x27;" })[c],
+        ),
 };
 
 /* ------------------------------------------------------------------ */

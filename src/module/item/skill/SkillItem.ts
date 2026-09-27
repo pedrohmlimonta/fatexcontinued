@@ -129,11 +129,16 @@ export class SkillItem extends BaseItem {
         }
     }
 
-    static async rollSkill(sheet, skill, event) {
+    /**
+     * Rolls a skill and sends the result to the chat.
+     * When rolled through an extra, the extra's name and bonus (or penalty) are added to the roll.
+     */
+    static async rollSkill(sheet, skill, event, { extra }: { extra?: { name: string; bonus: number } } = {}) {
         const actor = sheet.actor;
 
         const fateRoll = FateRoll.createFromSkill(skill, {
             magic: event.shiftKey,
+            extra,
         });
 
         if (!fateRoll) {

@@ -2,6 +2,14 @@
 
 ## FateX Continued
 
+### 2.1.0
+**Extras linked to a skill**
+* An extra can be linked to one of the character's skills and carry a roll bonus or penalty (-4 to +4), both set on the extra's sheet ("Linked skill" and "Roll bonus or penalty").
+* On the character sheet, a linked extra shows the skill it rolls, its rank and the bonus. Clicking the extra's name (except in edit mode) or that line rolls the skill with the extra's bonus, like a skill roll (shift for magic dice, 2d6 mode, Dice So Nice).
+* The chat card shows the extra's name and bonus under the skill. The bonus is part of the roll's bonus, so +2 and rerolls keep it.
+* The skill is referenced by name (like skill automation), so extras keep working when copied to other characters. If the character doesn't have that skill, the sheet says so and clicking warns instead of rolling.
+* Extras created before this version are not linked to any skill and look the same as before.
+
 ### 2.0.0
 First release of **FateX Continued**, the community continuation of FateX, based on FateX 1.5.4 plus the unreleased upstream change that uses the aspect label as chat title (anvil-vtt/FateX#153).
 

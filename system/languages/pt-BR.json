@@ -130,7 +130,19 @@
                 "Description": "Descrição",
                 "DescriptionHelp": "Descrição longa para este extra",
                 "ShortDescription": "Descrição Curta",
-                "ShortDescriptionHelp": "Descrição curta para esta extra"
+                "ShortDescriptionHelp": "Descrição curta para esta extra",
+                "Skill": "Perícia ligada",
+                "SkillHelp": "Ao clicar no extra na ficha, rola esta perícia",
+                "NoSkill": "— Nenhuma —",
+                "Bonus": "Bônus ou penalidade na rolagem",
+                "BonusHelp": "Somado à rolagem feita pelo extra (valores negativos são penalidades)",
+                "Roll": {
+                    "Title": "Rolar {skill}",
+                    "Bonus": "bônus {bonus}",
+                    "Penalty": "penalidade {bonus}",
+                    "Missing": "não existe nesta ficha",
+                    "SkillNotFound": "{actor} não tem a perícia \"{skill}\" ligada ao extra \"{extra}\"."
+                }
             },
             "Reference": {
                 "EditItem": "Editar Referência",

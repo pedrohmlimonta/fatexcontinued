@@ -8,6 +8,15 @@
     </header>
 
     <div class="fatex-roll" data-token-id="{{token.id}}">
+        {{#if options.extra}}
+            <div class="fatex-roll__extra">
+                <span class="fatex-roll__extra__name">{{options.extra.name}}</span>
+                {{#if extraBonusString}}
+                    <span class="fatex-roll__extra__bonus{{#if extraIsPenalty}} fatex-roll__extra__bonus--negative{{/if}}">{{extraBonusString}}</span>
+                {{/if}}
+            </div>
+        {{/if}}
+
         <div class="fatex-dice {{#if is2d6Roll}}fatex-dice--2d6-roll{{/if}}">
             {{#each symbols as |symbol symbolIndex|}}
                 <div {{#if (lt symbolIndex ../options.magicCount)}}class="fatex-dice__magic_die"{{/if}}>{{symbol}}</div>

@@ -121,7 +121,17 @@ export class ExtraDataModel extends TypeDataModel {
             ...subItemFields(),
             shortDescription: stringField(""),
             collapsed: booleanField(false),
+            // Skill rolled when the extra is clicked on the character sheet (referenced by name, like automation)
+            skill: stringField(""),
+            // Bonus (or penalty, when negative) added to that roll
+            bonus: numberField(0),
         };
+    }
+
+    static migrateData(source: Record<string, any>) {
+        sanitizeNumber(source, "bonus", 0);
+
+        return super.migrateData(source);
     }
 }
 

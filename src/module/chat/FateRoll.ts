@@ -14,13 +14,23 @@ export class FateRoll extends FateRollDataModel {
      */
     private _actor = null;
 
-    static createFromSkill(skill: SkillItemData & Record<string, any>, { magic = false } = {}) {
+    static createFromSkill(
+        skill: SkillItemData & Record<string, any>,
+        { magic = false, extra = null }: { magic?: boolean; extra?: { name: string; bonus: number } | null } = {},
+    ) {
         const actor = skill.actor ?? null;
         const options = {
             magic,
             actorId: actor?.id ?? null,
             actorUuid: actor?.uuid ?? null,
         };
+
+        // Rolled through an extra: its bonus (or penalty) starts in the roll's bonus, and its name is shown on the card
+        const extraBonus = extra ? Number(extra.bonus) || 0 : 0;
+
+        if (extra) {
+            options["extra"] = { name: String(extra.name ?? ""), bonus: extraBonus };
+        }
 
         if (game.settings.get(SYSTEM_ID, "guildCodexMagicSystemEnabled") && magic) {
             options["magicCount"] = this.determineMagicCount(skill);
@@ -38,6 +48,7 @@ export class FateRoll extends FateRollDataModel {
             id: foundry.utils.randomID(),
             name: skill.name,
             rank: Number(skill.system.rank ?? 0),
+            bonus: extraBonus,
             options,
         });
 
@@ -180,6 +191,19 @@ export class FateRoll extends FateRollDataModel {
 
     get is2d6Roll() {
         return this.options?.rollmode === ROLL_MODES["2d6"];
+    }
+
+    /**
+     * Bonus of the extra this roll was made through (empty if none)
+     */
+    get extraBonusString() {
+        const bonus = Number(this.options?.extra?.bonus) || 0;
+
+        return bonus ? (bonus < 0 ? "-" : "+").concat(Math.abs(bonus).toString()) : "";
+    }
+
+    get extraIsPenalty() {
+        return (Number(this.options?.extra?.bonus) || 0) < 0;
     }
 
     get rankStatus() {

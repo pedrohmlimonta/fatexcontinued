@@ -138,7 +138,19 @@
                 "Description": "Description",
                 "DescriptionHelp": "Long description for this extra",
                 "ShortDescription": "Short Description",
-                "ShortDescriptionHelp": "Short description for this extra"
+                "ShortDescriptionHelp": "Short description for this extra",
+                "Skill": "Linked skill",
+                "SkillHelp": "Clicking the extra on the character sheet rolls this skill",
+                "NoSkill": "— None —",
+                "Bonus": "Roll bonus or penalty",
+                "BonusHelp": "Added to the roll made through this extra (negative values are penalties)",
+                "Roll": {
+                    "Title": "Roll {skill}",
+                    "Bonus": "bonus {bonus}",
+                    "Penalty": "penalty {bonus}",
+                    "Missing": "not on this character",
+                    "SkillNotFound": "{actor} doesn't have the skill \"{skill}\" linked to the extra \"{extra}\"."
+                }
             },
             "Reference": {
                 "EditItem": "Edit Reference",

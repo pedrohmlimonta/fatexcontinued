@@ -2,7 +2,7 @@
     "id": "fatexcontinued",
     "title": "FateX Continued",
     "description": "A community continuation of FateX (Fate Extended) for Foundry VTT v14. Play Fate Core, Fate Accelerated, Fate Condensed and all their derivative systems with actor templates, custom stress tracks, consequences, conditions, stunts and extras.",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "authors": [
         {
             "name": "Patrick Bauer",
