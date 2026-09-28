@@ -3,9 +3,37 @@
  * Adds custom features based on the system.
  */
 import { getImageFromReference, getReferencesByGroupType } from "../helper/ActorGroupHelper";
-import { getSystemFlag } from "../../constants";
+import { SYSTEM_ID, getSystemFlag } from "../../constants";
 
 export class FateActor extends Actor {
+    /**
+     * New characters get a token linked to the actor ("Link Actor Data"), so the token and the actor in the Actors
+     * tab share the same sheet. A link state that comes with the data (copies, imports, templates) is kept.
+     */
+    async _preCreate(data: any, options: any, user: any) {
+        const allowed = await super._preCreate?.(data, options, user);
+
+        if (allowed === false) {
+            return false;
+        }
+
+        let linkByDefault = false;
+
+        try {
+            linkByDefault = !!game.settings.get(SYSTEM_ID, "linkCharacterTokens");
+        } catch (err) {
+            linkByDefault = false;
+        }
+
+        const linkGiven = foundry.utils.getProperty(data ?? {}, "prototypeToken.actorLink") !== undefined;
+
+        if (this.type === "character" && linkByDefault && !linkGiven) {
+            this.updateSource({ "prototypeToken.actorLink": true });
+        }
+
+        return allowed;
+    }
+
     /**
      * Open the template picker instead of showing the default creation dialog.
      * The default dialog is still used when creating actors inside a compendium.

@@ -569,6 +569,16 @@ export function createEnvironment({ settings = {}, worldSettings = [], language 
                 throw new Error(`Flag scope "${scope}" is not valid or not currently active`);
             return this.update({ [`flags.${scope}.${key}`]: value });
         }
+        updateSource(changes = {}) {
+            mergeObject(this._source, expandObject(deepClone(changes)));
+            this._initialize();
+            return changes;
+        }
+        static async updateDocuments(updates = [], options = {}) {
+            const collection = this._collection?.();
+            for (const { _id, ...changes } of updates) await collection?.get(_id)?.update(changes, options);
+            return updates;
+        }
         async update(changes = {}, options = {}) {
             log.updates.push({ uuid: this.uuid, changes: deepClone(changes), options });
             const expanded = expandObject(deepClone(changes));
@@ -595,6 +605,10 @@ export function createEnvironment({ settings = {}, worldSettings = [], language 
         static async create(data, options = {}) {
             const cls = this.implementation;
             const doc = new cls(deepClone(data), options);
+            if (typeof doc._preCreate === "function") {
+                const allowed = await doc._preCreate(deepClone(data), options, game.user);
+                if (allowed === false) return undefined;
+            }
             doc.prepareData();
             log.creates.push({ documentName: this.documentName, data: deepClone(data), options });
             cls._collection?.()?.set(doc.id, doc);

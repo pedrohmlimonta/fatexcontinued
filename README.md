@@ -60,10 +60,26 @@ A perícia é guardada pelo nome (como nas automações de perícias), então o 
 tenha uma perícia com esse nome. Se o personagem não tiver, a ficha avisa ("não existe nesta ficha") e o clique não
 rola.
 
+## Tokens ligados à ficha
+
+O token de um personagem usa a mesma ficha do personagem na aba **Atores**: pontos de destino, estresse,
+consequências e o resto são sempre os mesmos nos dois. Isso vem da opção **Tokens de personagem ligados à ficha**,
+nas configurações do sistema, ligada por padrão.
+
+- Personagens novos já nascem com o token ligado.
+- Ao atualizar para a 2.0.3, na primeira vez que o mestre abrir o mundo, os personagens que já existem (inclusive os
+  modelos) e os tokens de personagem já colocados nas cenas são ligados. O que tinha sido mudado só no token é
+  trocado pela ficha do personagem.
+- Para capangas (vários tokens independentes do mesmo personagem), desmarque **Vincular dados do ator** na
+  configuração do token padrão desse personagem (botão de token no cabeçalho da ficha, aba Identidade). Cópias desse
+  personagem continuam desligadas.
+- Grupos não mudam.
+
 ## O que mudou em relação ao FateX 1.5.4
 
 - Compatível com o Foundry VTT v14.368 (compatibilidade mínima: v14).
 - Extras podem ser ligados a uma perícia, com bônus ou penalidade, e rolados direto da ficha (veja acima).
+- Tokens de personagem ligados à ficha da aba Atores por padrão (veja acima).
 - Novo id `fatexcontinued`: caminhos, flags, configurações e canal de socket foram renomeados.
 - `template.json` (depreciado no v14) foi substituído por `documentTypes` no `system.json` + *TypeDataModels*,
   mantendo exatamente a mesma estrutura de dados.

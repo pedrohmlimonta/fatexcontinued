@@ -257,6 +257,11 @@
             "enable2d6RollMode": {
                 "Name": "Enable 2d6 roll mode",
                 "Hint": "This will enable the 2d6 (1d6 - 1d6) roll mode for all future rolls."
+            },
+            "LinkCharacterTokens": {
+                "Name": "Link character tokens to their sheet",
+                "Hint": "The token and the character in the Actors tab share the same sheet (fate points, stress, consequences…). New characters are created like this, and turning this on also links the characters and tokens that already exist (changes made only on a token are replaced by the character's sheet). For mooks with several tokens of the same character, uncheck \"Link Actor Data\" in that character's prototype token.",
+                "Done": "{actors} character(s) and {tokens} token(s) now share the sheet of the Actors tab."
             }
         },
         "Template": {

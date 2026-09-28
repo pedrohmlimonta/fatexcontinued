@@ -251,6 +251,11 @@
             "magicSystemEnabled": {
                 "Name": "Ativar o sistema de magia do Fate Core Unleashed",
                 "Hint": "Adiciona uma perícia mágica à ficha de personagem e permite usar dados mágicos."
+            },
+            "LinkCharacterTokens": {
+                "Name": "Tokens de personagem ligados à ficha",
+                "Hint": "O token e o personagem da aba Atores usam a mesma ficha (pontos de destino, estresse, consequências…). Personagens novos já nascem assim, e ao ligar esta opção os personagens e tokens que já existem também são ligados (o que foi mudado só no token é substituído pela ficha do personagem). Para capangas com vários tokens do mesmo personagem, desmarque \"Vincular dados do ator\" no token padrão desse personagem.",
+                "Done": "{actors} personagem(ns) e {tokens} token(s) agora usam a mesma ficha da aba Atores."
             }
         },
         "Template": {

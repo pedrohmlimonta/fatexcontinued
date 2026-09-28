@@ -1,4 +1,5 @@
 import { SYSTEM_ID } from "../../constants";
+import { LinkedTokensFeature } from "../features/LinkedTokensFeature";
 
 /**
  * Registers all settings of the system.
@@ -21,6 +22,25 @@ export class FateXSettings {
             scope: "world",
             config: true,
             default: true,
+            type: Boolean,
+        });
+
+        game.settings.register(SYSTEM_ID, "linkCharacterTokens", {
+            name: "FAx.Settings.LinkCharacterTokens.Name",
+            hint: "FAx.Settings.LinkCharacterTokens.Hint",
+            scope: "world",
+            config: true,
+            default: true,
+            type: Boolean,
+            onChange: (value) => LinkedTokensFeature.onSettingChange(!!value),
+        });
+
+        // Internal: the existing characters and tokens of this world were linked once
+        game.settings.register(SYSTEM_ID, "linkedTokensMigrated", {
+            name: "Linked character tokens",
+            scope: "world",
+            config: false,
+            default: false,
             type: Boolean,
         });
 

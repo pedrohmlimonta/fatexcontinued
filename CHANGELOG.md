@@ -2,6 +2,11 @@
 
 ## FateX Continued
 
+### 2.0.3
+* Character tokens are linked to their actor ("Link Actor Data"): the token and the character in the Actors tab share the same sheet, so fate points, stress, consequences and everything else are the same on both. New setting "Link character tokens to their sheet", on by default.
+* New characters are created with a linked token. A link state that comes with the data (duplicates, imports, characters created from templates) is kept, so an actor deliberately unlinked for mooks stays unlinked.
+* The first time a GM opens the world with this version, the existing characters (including templates) and the character tokens already placed on scenes are linked once. Changes that had been made only on an unlinked token are replaced by the character's sheet. Turning the setting on again repeats this. Groups are not changed.
+
 ### 2.0.2
 * Extras can cost fate points: the extra's sheet has a "Fate point cost" field (0 by default). Rolling the extra checks that the character has enough fate points, spends them and then rolls; without enough fate points it warns and doesn't roll. The character sheet shows the cost next to the skill (in red when it can't be paid) and the chat card says how many fate points were spent. Nothing is spent when the roll can't happen (for example a magic roll without a magic skill), and a double click rolls and pays only once.
 * Extras: the roll bonus or penalty has no limit anymore. The extra's sheet keeps the -4 to +4 row and adds − (left) and + (right) buttons that change it by one beyond those values; a bonus outside that range is shown at the matching end of the row.
