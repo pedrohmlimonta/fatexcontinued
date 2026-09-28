@@ -16,7 +16,10 @@ export class FateRoll extends FateRollDataModel {
 
     static createFromSkill(
         skill: SkillItemData & Record<string, any>,
-        { magic = false, extra = null }: { magic?: boolean; extra?: { name: string; bonus: number } | null } = {},
+        {
+            magic = false,
+            extra = null,
+        }: { magic?: boolean; extra?: { name: string; bonus: number; fateCost?: number } | null } = {},
     ) {
         const actor = skill.actor ?? null;
         const options = {
@@ -25,11 +28,13 @@ export class FateRoll extends FateRollDataModel {
             actorUuid: actor?.uuid ?? null,
         };
 
-        // Rolled through an extra: its bonus (or penalty) starts in the roll's bonus, and its name is shown on the card
+        // Rolled through an extra: its bonus (or penalty) starts in the roll's bonus, and its name (and the fate
+        // points it cost) are shown on the card
         const extraBonus = extra ? Number(extra.bonus) || 0 : 0;
 
         if (extra) {
-            options["extra"] = { name: String(extra.name ?? ""), bonus: extraBonus };
+            const fateCost = Math.max(0, Math.round(Number(extra.fateCost) || 0));
+            options["extra"] = { name: String(extra.name ?? ""), bonus: extraBonus, ...(fateCost ? { fateCost } : {}) };
         }
 
         if (game.settings.get(SYSTEM_ID, "guildCodexMagicSystemEnabled") && magic) {
@@ -204,6 +209,21 @@ export class FateRoll extends FateRollDataModel {
 
     get extraIsPenalty() {
         return (Number(this.options?.extra?.bonus) || 0) < 0;
+    }
+
+    /**
+     * Fate points spent to roll through the extra (empty if none)
+     */
+    get extraFateCostLabel() {
+        const cost = Number(this.options?.extra?.fateCost) || 0;
+
+        if (cost <= 0) {
+            return "";
+        }
+
+        return cost === 1
+            ? game.i18n.localize("FAx.Item.Extra.Roll.SpentOne")
+            : game.i18n.format("FAx.Item.Extra.Roll.SpentMany", { cost });
     }
 
     get rankStatus() {

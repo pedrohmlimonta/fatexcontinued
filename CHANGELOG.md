@@ -2,9 +2,13 @@
 
 ## FateX Continued
 
-### 2.1.0
+### 2.0.2
+* Extras can cost fate points: the extra's sheet has a "Fate point cost" field (0 by default). Rolling the extra checks that the character has enough fate points, spends them and then rolls; without enough fate points it warns and doesn't roll. The character sheet shows the cost next to the skill (in red when it can't be paid) and the chat card says how many fate points were spent. Nothing is spent when the roll can't happen (for example a magic roll without a magic skill), and a double click rolls and pays only once.
+* Extras: the roll bonus or penalty has no limit anymore. The extra's sheet keeps the -4 to +4 row and adds − (left) and + (right) buttons that change it by one beyond those values; a bonus outside that range is shown at the matching end of the row.
+
+### 2.0.1
 **Extras linked to a skill**
-* An extra can be linked to one of the character's skills and carry a roll bonus or penalty (-4 to +4), both set on the extra's sheet ("Linked skill" and "Roll bonus or penalty").
+* An extra can be linked to one of the character's skills and carry a roll bonus or penalty, both set on the extra's sheet ("Linked skill" and "Roll bonus or penalty").
 * On the character sheet, a linked extra shows the skill it rolls, its rank and the bonus. Clicking the extra's name (except in edit mode) or that line rolls the skill with the extra's bonus, like a skill roll (shift for magic dice, 2d6 mode, Dice So Nice).
 * The chat card shows the extra's name and bonus under the skill. The bonus is part of the roll's bonus, so +2 and rerolls keep it.
 * The skill is referenced by name (like skill automation), so extras keep working when copied to other characters. If the character doesn't have that skill, the sheet says so and clicking warns instead of rolling.

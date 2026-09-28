@@ -43,6 +43,9 @@
                         {{#if extra.rollInfo.bonus}}
                             <span class="fatex-extra-roll__bonus{{#if extra.rollInfo.isPenalty}} fatex-extra-roll__bonus--negative{{/if}}">{{extra.rollInfo.bonus}}</span>
                         {{/if}}
+                        {{#if extra.rollInfo.cost}}
+                            <span class="fatex-extra-roll__cost{{#if extra.rollInfo.cannotAfford}} fatex-extra-roll__cost--missing{{/if}}">{{extra.rollInfo.cost}}</span>
+                        {{/if}}
                     </div>
                 {{/if}}
 

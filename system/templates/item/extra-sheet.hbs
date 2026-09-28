@@ -36,7 +36,13 @@
         <h3 class="fatex-headline__text">{{localize "FAx.Item.Extra.Bonus"}}</h3>
     </header>
 
-    <div class="fatex-radio-group fatex-radio-group--ranks">
+    <div class="fatex-radio-group fatex-radio-group--ranks fatex-extra-bonus">
+        <a
+            class="fatex-js-extra-bonus-step fatex-extra-bonus__step"
+            data-step="-1"
+            title="{{localize "FAx.Item.Extra.BonusDecrease"}}"
+        ><i class="fas fa-minus"></i></a>
+
         {{#each availableBonuses as |bonus|}}
             <div
                 class="fatex-js-radio-button fatex-radio-rank{{#if (eq bonus ../system.bonus)}} fatex-radio-rank--active{{/if}}{{#if (lt bonus 0)}} fatex-radio-rank--negative{{/if}}"
@@ -47,9 +53,35 @@
                 <span class="fatex__setting__radio__value">{{#if (gte bonus 0)}}+{{/if}}{{bonus}}</span>
             </div>
         {{/each}}
+
+        <a
+            class="fatex-js-extra-bonus-step fatex-extra-bonus__step"
+            data-step="1"
+            title="{{localize "FAx.Item.Extra.BonusIncrease"}}"
+        ><i class="fas fa-plus"></i></a>
     </div>
 
     <span class="fatex-text-input__setting-label">{{localize "FAx.Item.Extra.BonusHelp"}}</span>
+</div>
+
+<div class="fatex-setting">
+    <header class="fatex-headline">
+        <h3 class="fatex-headline__text">{{localize "FAx.Item.Extra.FateCost"}}</h3>
+    </header>
+
+    <label>
+        <input
+            type="number"
+            class="fatex-text-input fatex-extra-cost-input"
+            name="system.fateCost"
+            value="{{system.fateCost}}"
+            min="0"
+            step="1"
+            data-dtype="Number"
+        />
+
+        <span class="fatex-text-input__setting-label">{{localize "FAx.Item.Extra.FateCostHelp"}}</span>
+    </label>
 </div>
 
 {{> "systems/fatexcontinued/templates/item/settings/setting-editor.hbs"

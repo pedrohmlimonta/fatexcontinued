@@ -125,11 +125,24 @@ export class ExtraDataModel extends TypeDataModel {
             skill: stringField(""),
             // Bonus (or penalty, when negative) added to that roll
             bonus: numberField(0),
+            // Fate points spent each time the extra is rolled
+            fateCost: new foundry.data.fields.NumberField({
+                required: true,
+                nullable: false,
+                integer: true,
+                min: 0,
+                initial: 0,
+            }),
         };
     }
 
     static migrateData(source: Record<string, any>) {
         sanitizeNumber(source, "bonus", 0);
+        sanitizeNumber(source, "fateCost", 0);
+
+        if (source && typeof source.fateCost === "number") {
+            source.fateCost = Math.max(0, Math.round(source.fateCost));
+        }
 
         return super.migrateData(source);
     }

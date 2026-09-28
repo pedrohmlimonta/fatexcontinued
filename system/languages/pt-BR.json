@@ -135,13 +135,22 @@
                 "SkillHelp": "Ao clicar no extra na ficha, rola esta perícia",
                 "NoSkill": "— Nenhuma —",
                 "Bonus": "Bônus ou penalidade na rolagem",
-                "BonusHelp": "Somado à rolagem feita pelo extra (valores negativos são penalidades)",
+                "BonusHelp": "Somado à rolagem feita pelo extra (valores negativos são penalidades). Use − e + para passar de -4 ou +4",
+                "BonusDecrease": "Diminuir o bônus em 1",
+                "BonusIncrease": "Aumentar o bônus em 1",
+                "FateCost": "Custo em pontos de destino",
+                "FateCostHelp": "Pontos de destino gastos a cada rolagem feita pelo extra (0 = não gasta). Sem pontos suficientes, a rolagem não acontece",
                 "Roll": {
                     "Title": "Rolar {skill}",
                     "Bonus": "bônus {bonus}",
                     "Penalty": "penalidade {bonus}",
                     "Missing": "não existe nesta ficha",
-                    "SkillNotFound": "{actor} não tem a perícia \"{skill}\" ligada ao extra \"{extra}\"."
+                    "SkillNotFound": "{actor} não tem a perícia \"{skill}\" ligada ao extra \"{extra}\".",
+                    "Cost": "custa {cost} PD",
+                    "SpentOne": "gastou 1 ponto de destino",
+                    "SpentMany": "gastou {cost} pontos de destino",
+                    "NotEnoughFatePoints": "{actor} não tem pontos de destino suficientes para \"{extra}\" (custa {cost}, tem {current}).",
+                    "CannotSpendFatePoints": "Você não pode gastar os pontos de destino de {actor}."
                 }
             },
             "Reference": {

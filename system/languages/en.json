@@ -143,13 +143,22 @@
                 "SkillHelp": "Clicking the extra on the character sheet rolls this skill",
                 "NoSkill": "— None —",
                 "Bonus": "Roll bonus or penalty",
-                "BonusHelp": "Added to the roll made through this extra (negative values are penalties)",
+                "BonusHelp": "Added to the roll made through this extra (negative values are penalties). Use − and + to go beyond -4 or +4",
+                "BonusDecrease": "Lower the bonus by 1",
+                "BonusIncrease": "Raise the bonus by 1",
+                "FateCost": "Fate point cost",
+                "FateCostHelp": "Fate points spent each time the extra is rolled (0 = free). Without enough fate points, the roll doesn't happen",
                 "Roll": {
                     "Title": "Roll {skill}",
                     "Bonus": "bonus {bonus}",
                     "Penalty": "penalty {bonus}",
                     "Missing": "not on this character",
-                    "SkillNotFound": "{actor} doesn't have the skill \"{skill}\" linked to the extra \"{extra}\"."
+                    "SkillNotFound": "{actor} doesn't have the skill \"{skill}\" linked to the extra \"{extra}\".",
+                    "Cost": "costs {cost} FP",
+                    "SpentOne": "spent 1 fate point",
+                    "SpentMany": "spent {cost} fate points",
+                    "NotEnoughFatePoints": "{actor} doesn't have enough fate points for \"{extra}\" (costs {cost}, has {current}).",
+                    "CannotSpendFatePoints": "You can't spend the fate points of {actor}."
                 }
             },
             "Reference": {

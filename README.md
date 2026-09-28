@@ -43,12 +43,18 @@ Um extra pode ser ligado a uma perícia do personagem e ter um bônus (ou penali
 
 1. Na ficha, aba **Extras**, ligue o **Modo de Edição** (botão no topo da janela) e clique na engrenagem do extra
    (ao criar um extra novo, a configuração já abre sozinha).
-2. Em **Perícia ligada**, escolha a perícia. Em **Bônus ou penalidade na rolagem**, escolha de -4 a +4.
+2. Em **Perícia ligada**, escolha a perícia. Em **Bônus ou penalidade na rolagem**, escolha de -4 a +4 — os botões
+   **−** e **+** nas pontas mudam de 1 em 1 e passam desses limites, sem máximo. Em **Custo em pontos de destino**,
+   coloque quantos pontos de destino cada rolagem gasta (0, o padrão, não gasta nada).
 3. O extra passa a mostrar, abaixo do nome, a perícia que rola, o nível dela e o bônus. **Clique no nome do extra
    ou nessa linha** para rolar — igual a clicar numa perícia (Shift rola os dados mágicos, o modo 2d6 e o Dice So
    Nice continuam valendo). No modo de edição da ficha, só a linha rola.
 4. A carta no chat mostra a perícia e, logo abaixo, o extra e o bônus dele. O bônus já entra no total, e o +2 e o
    rolar de novo continuam funcionando.
+5. Se o extra tiver custo, ao rolar o sistema confere se o personagem tem pontos de destino suficientes, gasta e
+   então rola (a carta mostra "gastou N pontos de destino"). Sem pontos suficientes, aparece um aviso e nada é
+   rolado nem gasto. Na ficha, o custo aparece ao lado da perícia ("custa 2 PD"), em vermelho quando não dá para
+   pagar.
 
 A perícia é guardada pelo nome (como nas automações de perícias), então o extra funciona em qualquer personagem que
 tenha uma perícia com esse nome. Se o personagem não tiver, a ficha avisa ("não existe nesta ficha") e o clique não

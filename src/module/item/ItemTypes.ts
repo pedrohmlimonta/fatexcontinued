@@ -69,6 +69,7 @@ interface ExtraData {
     parentID?: string;
     skill: string;
     bonus: number;
+    fateCost: number;
 }
 
 export interface ExtraItemData {

@@ -52,7 +52,19 @@
         text-transform: none;
     }
 
+    &__cost {
+        font-weight: normal;
+        text-transform: none;
+        opacity: 0.85;
+
+        &::before {
+            content: "·";
+            margin-right: 6px;
+        }
+    }
+
     &__bonus--negative,
+    &__cost--missing,
     &--missing &__missing {
         color: $caution-color;
     }
@@ -81,6 +93,45 @@
 
         &--negative {
             color: $caution-color;
+        }
+    }
+}
+
+.fatex-roll__extra-cost {
+    margin: -6px 0 8px;
+    font-size: 11px;
+    font-style: italic;
+    color: inherit;
+    opacity: 0.85;
+}
+
+.fatex-extra-cost-input {
+    width: 80px;
+    color: inherit;
+}
+
+// Extra sheet: − and + around the listed bonuses, to go beyond them
+.fatex-extra-bonus {
+    align-items: center;
+
+    &__step {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        border: 2px solid $fatex-primary-color;
+        border-radius: 50%;
+        color: $fatex-primary-color;
+        font-size: 11px;
+        cursor: pointer;
+        opacity: 0.5;
+        transition: opacity 0.15s;
+
+        &:hover {
+            opacity: 1;
+            text-shadow: none;
         }
     }
 }

@@ -116,8 +116,13 @@ describe("extras linked to a skill", () => {
                 .filter((b) => Number(b.dataset.value) < 0)
                 .every((b) => b.classList.contains("fatex-radio-rank--negative")),
         );
+        const row = container.querySelector(".fatex-extra-bonus");
+        assert.equal(row.firstElementChild.dataset.step, "-1", "the − button is on the left");
+        assert.equal(row.lastElementChild.dataset.step, "1", "the + button is on the right");
+        assert.equal(row.firstElementChild.title, "Lower the bonus by 1");
+        assert.equal(row.lastElementChild.title, "Raise the bonus by 1");
         assert.match(html, /Linked skill/);
-        assert.match(html, /negative values are penalties/);
+        assert.match(html, /negative values are penalties\). Use − and \+ to go beyond -4 or \+4/);
         assert.doesNotMatch(html, /undefined|\[object Object\]/);
 
         // A skill the character doesn't have stays selected, marked as missing
@@ -127,6 +132,82 @@ describe("extras linked to a skill", () => {
             label: "Shoot - not on this character",
             selected: true,
         });
+    });
+
+    test("the − and + buttons go beyond -4 and +4 without limit", async () => {
+        const actor = await createHero(env, [
+            { _id: "extraHammer00001", name: "Hammer", type: "extra", system: { skill: "Fight", bonus: 4 } },
+            { _id: "extraAnchor00001", name: "Anchor", type: "extra", system: { skill: "Athletics", bonus: -4 } },
+        ]);
+
+        /** Renders the extra's sheet with its listeners and clicks a − or + button */
+        const clickStep = async (item, step, { editable = true } = {}) => {
+            const { sheet, html } = await renderExtraSheet(env, item);
+            if (!editable) Object.defineProperty(sheet, "isEditable", { value: false });
+            const container = env.window.document.createElement("form");
+            container.innerHTML = html;
+            env.window.document.body.append(container);
+            sheet.activateListeners(env.window.$(container));
+            container.querySelector(`.fatex-js-extra-bonus-step[data-step="${step}"]`).click();
+            await wait();
+            container.remove();
+        };
+        const activeBonuses = async (item) => {
+            const { data, html } = await renderExtraSheet(env, item);
+            const container = env.window.document.createElement("div");
+            container.innerHTML = html;
+            const active = [...container.querySelectorAll(".fatex-radio-rank--active")].map((b) =>
+                b.textContent.trim(),
+            );
+            return { listed: plain(data.availableBonuses), active, container };
+        };
+
+        const hammer = actor.items.get("extraHammer00001");
+        await clickStep(hammer, 1);
+        assert.equal(hammer.system.bonus, 5);
+        await clickStep(hammer, 1);
+        await clickStep(hammer, 1);
+        assert.equal(hammer.system.bonus, 7);
+        let view = await activeBonuses(hammer);
+        assert.deepEqual(view.listed, [-4, -3, -2, -1, 0, 1, 2, 3, 4, 7], "+7 is shown after +4");
+        assert.deepEqual(view.active, ["+7"]);
+        assert.equal(view.container.querySelector(".fatex-extra-bonus").lastElementChild.dataset.step, "1");
+
+        await clickStep(hammer, -1);
+        assert.equal(hammer.system.bonus, 6, "− also works above +4");
+
+        const anchor = actor.items.get("extraAnchor00001");
+        await clickStep(anchor, -1);
+        await clickStep(anchor, -1);
+        assert.equal(anchor.system.bonus, -6);
+        view = await activeBonuses(anchor);
+        assert.deepEqual(view.listed, [-6, -4, -3, -2, -1, 0, 1, 2, 3, 4], "-6 is shown before -4");
+        assert.deepEqual(view.active, ["-6"]);
+        assert.ok(view.container.querySelector('[data-value="-6"]').classList.contains("fatex-radio-rank--negative"));
+
+        // Back inside the listed values: no extra entry
+        for (let i = 0; i < 3; i++) await clickStep(anchor, 1);
+        assert.equal(anchor.system.bonus, -3);
+        view = await activeBonuses(anchor);
+        assert.deepEqual(view.listed, [-4, -3, -2, -1, 0, 1, 2, 3, 4]);
+        assert.deepEqual(view.active, ["-3"]);
+
+        // A sheet that can't be edited doesn't change the bonus
+        await clickStep(hammer, 1, { editable: false });
+        assert.equal(hammer.system.bonus, 6);
+
+        // The roll uses the bonus beyond +4
+        const { container } = await renderCharacterSheet(env, actor);
+        const line = container.querySelector('.fatex-extra-roll[data-item="extraHammer00001"]');
+        assert.match(line.textContent.replace(/\s+/g, " "), /Fight \+3 bonus \+6/);
+        env.setNextDiceResults([1, 1, 1, 1]);
+        line.click();
+        await wait();
+        const message = env.log.chatMessages.at(-1);
+        assert.equal(message.flags[SYSTEM_ID].chatCard.rolls[0].bonus, 6);
+        assert.match(message.content, /fatex-roll__total">\+13</, "4 (dice) + 3 (skill) + 6 (extra)");
+        assert.match(message.content, /fatex-roll__extra__bonus">\+6</);
+        container.remove();
     });
 
     test("an extra outside a character lists the skills of every actor", async () => {
@@ -328,6 +409,140 @@ describe("extras linked to a skill", () => {
         container.remove();
     });
 
+    test("extras cost no fate points by default, and the cost is always a whole number of zero or more", async () => {
+        const actor = await createHero(env, [
+            { _id: "extraFree0000001", name: "Free", type: "extra" },
+            { _id: "extraText0000001", name: "Text", type: "extra", system: { fateCost: "2" } },
+            { _id: "extraNegative001", name: "Negative", type: "extra", system: { fateCost: -3 } },
+            { _id: "extraFraction001", name: "Fraction", type: "extra", system: { fateCost: 1.6 } },
+            { _id: "extraBroken00002", name: "Broken", type: "extra", system: { fateCost: "oops" } },
+        ]);
+        const cost = (id) => actor.items.get(id).system.fateCost;
+        assert.equal(cost("extraFree0000001"), 0);
+        assert.equal(cost("extraText0000001"), 2);
+        assert.equal(cost("extraNegative001"), 0);
+        assert.equal(cost("extraFraction001"), 2);
+        assert.equal(cost("extraBroken00002"), 0);
+
+        const { html } = await renderExtraSheet(env, actor.items.get("extraText0000001"));
+        const container = env.window.document.createElement("div");
+        container.innerHTML = html;
+        const input = container.querySelector('input[name="system.fateCost"]');
+        assert.ok(input, "fate point cost input rendered");
+        assert.equal(input.type, "number");
+        assert.equal(input.value, "2");
+        assert.equal(input.min, "0");
+        assert.equal(input.dataset.dtype, "Number");
+        assert.match(container.textContent, /Fate point cost/);
+        assert.match(container.textContent, /\(0 = free\)/);
+
+        const free = await renderExtraSheet(env, actor.items.get("extraFree0000001"));
+        assert.match(free.html, /name="system\.fateCost"\s+value="0"/);
+    });
+
+    test("rolling an extra spends its fate point cost, and doesn't roll without enough fate points", async () => {
+        const actor = await createHero(env, [
+            { _id: "extraRing0000001", name: "Ring", type: "extra", system: { skill: "Fight", bonus: 1, fateCost: 1 } },
+            {
+                _id: "extraStaff000001",
+                name: "Staff",
+                type: "extra",
+                system: { skill: "Fight", bonus: 2, fateCost: 2 },
+            },
+            { _id: "extraCloak000001", name: "Cloak", type: "extra", system: { skill: "Athletics" } },
+        ]);
+        await actor.update({ "system.fatepoints.current": 2 });
+        const fatePoints = () => actor.system.fatepoints.current;
+
+        let sheet = await renderCharacterSheet(env, actor);
+        const ring = sheet.container.querySelector('.fatex-extra-roll[data-item="extraRing0000001"]');
+        assert.match(ring.textContent.replace(/\s+/g, " "), /Fight \+3 bonus \+1 costs 1 FP/);
+        assert.equal(ring.title, "Roll Fight (+3) bonus +1 costs 1 FP");
+        assert.ok(!ring.querySelector(".fatex-extra-roll__cost--missing"), "affordable");
+        const cloak = sheet.container.querySelector('.fatex-extra-roll[data-item="extraCloak000001"]');
+        assert.equal(cloak.querySelector(".fatex-extra-roll__cost"), null, "no cost shown for free extras");
+
+        // Pays 1 and rolls
+        let before = env.log.chatMessages.length;
+        env.setNextDiceResults([1, 0, 0, 0]);
+        ring.click();
+        await wait();
+        assert.equal(fatePoints(), 1, "one fate point spent");
+        assert.equal(env.log.chatMessages.length, before + 1);
+        let message = env.log.chatMessages.at(-1);
+        assert.deepEqual(plain(message.flags[SYSTEM_ID].chatCard.rolls[0].options.extra), {
+            name: "Ring",
+            bonus: 1,
+            fateCost: 1,
+        });
+        assert.match(message.content, /fatex-roll__extra-cost">spent 1 fate point</);
+        assert.match(message.content, /fatex-roll__total">\+5</, "1 (dice) + 3 (skill) + 1 (extra)");
+        sheet.container.remove();
+
+        // Staff costs 2 and only 1 is left: warns, doesn't roll, keeps the fate point
+        sheet = await renderCharacterSheet(env, actor);
+        const staff = sheet.container.querySelector('.fatex-extra-roll[data-item="extraStaff000001"]');
+        assert.ok(staff.querySelector(".fatex-extra-roll__cost--missing"), "the cost is highlighted when unaffordable");
+        before = env.log.chatMessages.length;
+        staff.click();
+        await wait();
+        assert.equal(env.log.chatMessages.length, before, "nothing rolled");
+        assert.equal(fatePoints(), 1, "no fate point spent");
+        assert.deepEqual(env.log.notifications.at(-1).slice(0, 2), [
+            "warn",
+            'Hero doesn\'t have enough fate points for "Staff" (costs 2, has 1).',
+        ]);
+        sheet.container.remove();
+
+        // Exactly enough fate points: pays 2, and the card says so
+        await actor.update({ "system.fatepoints.current": 2 });
+        sheet = await renderCharacterSheet(env, actor);
+        env.setNextDiceResults([0, 0, 0, 0]);
+        sheet.container.querySelector('.fatex-extra-roll[data-item="extraStaff000001"]').click();
+        await wait();
+        assert.equal(fatePoints(), 0);
+        assert.match(env.log.chatMessages.at(-1).content, /fatex-roll__extra-cost">spent 2 fate points</);
+
+        // Free extras don't touch fate points and show no cost line
+        env.setNextDiceResults([0, 0, 0, 0]);
+        sheet.container.querySelector('.fatex-extra-roll[data-item="extraCloak000001"]').click();
+        await wait();
+        assert.equal(fatePoints(), 0, "free extras roll even with no fate points");
+        assert.doesNotMatch(env.log.chatMessages.at(-1).content, /fatex-roll__extra-cost/);
+        assert.deepEqual(plain(env.log.chatMessages.at(-1).flags[SYSTEM_ID].chatCard.rolls[0].options.extra), {
+            name: "Cloak",
+            bonus: 0,
+        });
+        sheet.container.remove();
+    });
+
+    test("a double click rolls and pays only once, and only owners can spend the fate points", async () => {
+        const actor = await createHero(env, [
+            { _id: "extraGem00000001", name: "Gem", type: "extra", system: { skill: "Fight", fateCost: 1 } },
+        ]);
+        await actor.update({ "system.fatepoints.current": 3 });
+
+        const { container } = await renderCharacterSheet(env, actor);
+        const line = container.querySelector('.fatex-extra-roll[data-item="extraGem00000001"]');
+        const before = env.log.chatMessages.length;
+        env.setNextDiceResults([0, 0, 0, 0]);
+        line.click();
+        line.click();
+        await wait(60);
+        assert.equal(env.log.chatMessages.length, before + 1, "one roll");
+        assert.equal(actor.system.fatepoints.current, 2, "one payment");
+
+        // Someone who can see the sheet but doesn't own the character
+        Object.defineProperty(actor, "isOwner", { value: false, configurable: true });
+        line.click();
+        await wait();
+        assert.equal(env.log.chatMessages.length, before + 1, "no roll");
+        assert.equal(actor.system.fatepoints.current, 2);
+        assert.equal(env.log.notifications.at(-1)[1], "You can't spend the fate points of Hero.");
+        delete actor.isOwner;
+        container.remove();
+    });
+
     test("regular skill rolls don't show an extra", async () => {
         const actor = await createHero(env);
         const SkillItem = env.CONFIG.FateX.itemClasses.skill;
@@ -337,6 +552,35 @@ describe("extras linked to a skill", () => {
         assert.equal(message.flags[SYSTEM_ID].chatCard.rolls[0].bonus, 0);
         assert.ok(!("extra" in message.flags[SYSTEM_ID].chatCard.rolls[0].options));
         assert.doesNotMatch(message.content, /fatex-roll__extra/);
+    });
+});
+
+describe("extras linked to a skill (magic system)", () => {
+    test("a magic roll that is refused doesn't spend the extra's fate points", async () => {
+        const env = createEnvironment({ settings: { [`${SYSTEM_ID}.guildCodexMagicSystemEnabled`]: true } });
+        await env.init();
+        await env.ready();
+
+        const actor = await createHero(env, [
+            { _id: "extraWand0000001", name: "Wand", type: "extra", system: { skill: "Fight", fateCost: 1 } },
+        ]);
+        const { container } = await renderCharacterSheet(env, actor);
+        const line = container.querySelector('.fatex-extra-roll[data-item="extraWand0000001"]');
+
+        // Shift: magic dice, but the character has no magic skill
+        line.dispatchEvent(new env.window.MouseEvent("click", { bubbles: true, shiftKey: true }));
+        await wait();
+        assert.equal(actor.system.fatepoints.current, 3, "nothing spent");
+        assert.equal(env.log.chatMessages.length, 0);
+        assert.equal(env.log.notifications.at(-1)[0], "error", "the system explains why it can't roll magic");
+
+        // A normal click rolls and pays
+        env.setNextDiceResults([0, 0, 0, 0]);
+        line.click();
+        await wait();
+        assert.equal(actor.system.fatepoints.current, 2);
+        assert.equal(env.log.chatMessages.length, 1);
+        container.remove();
     });
 });
 
@@ -361,7 +605,27 @@ describe("extras linked to a skill (Português)", () => {
         await wait();
         assert.equal(env.log.notifications.at(-1)[1], 'Hero não tem a perícia "Atirar" ligada ao extra "Arco".');
 
+        // Custo em pontos de destino
+        await actor.createEmbeddedDocuments("Item", [
+            { _id: "extraAmulet00001", name: "Amuleto", type: "extra", system: { skill: "Fight", fateCost: 2 } },
+        ]);
+        const costSheet = await renderCharacterSheet(env, actor);
+        const amulet = costSheet.container.querySelector('.fatex-extra-roll[data-item="extraAmulet00001"]');
+        assert.match(amulet.textContent.replace(/\s+/g, " "), /Fight \+3 custa 2 PD/);
+        env.setNextDiceResults([0, 0, 0, 0]);
+        amulet.click();
+        await wait();
+        assert.match(env.log.chatMessages.at(-1).content, /gastou 2 pontos de destino/);
+        amulet.click();
+        await wait();
+        assert.equal(
+            env.log.notifications.at(-1)[1],
+            'Hero não tem pontos de destino suficientes para "Amuleto" (custa 2, tem 1).',
+        );
+        costSheet.container.remove();
+
         const { html } = await renderExtraSheet(env, actor.items.get("extraSword000003"));
+        assert.match(html, /Custo em pontos de destino/);
         assert.match(html, /Perícia ligada/);
         assert.match(html, /Bônus ou penalidade na rolagem/);
         assert.match(html, /— Nenhuma —/);

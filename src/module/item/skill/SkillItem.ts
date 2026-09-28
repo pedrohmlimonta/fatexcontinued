@@ -131,9 +131,21 @@ export class SkillItem extends BaseItem {
 
     /**
      * Rolls a skill and sends the result to the chat.
-     * When rolled through an extra, the extra's name and bonus (or penalty) are added to the roll.
+     * When rolled through an extra, the extra's name, bonus (or penalty) and fate point cost are added to the roll.
+     * beforeRoll runs once the roll is prepared (e.g. to pay that cost); returning false cancels the roll.
      */
-    static async rollSkill(sheet, skill, event, { extra }: { extra?: { name: string; bonus: number } } = {}) {
+    static async rollSkill(
+        sheet,
+        skill,
+        event,
+        {
+            extra,
+            beforeRoll,
+        }: {
+            extra?: { name: string; bonus: number; fateCost?: number };
+            beforeRoll?: () => Promise<boolean> | boolean;
+        } = {},
+    ) {
         const actor = sheet.actor;
 
         const fateRoll = FateRoll.createFromSkill(skill, {
@@ -142,6 +154,10 @@ export class SkillItem extends BaseItem {
         });
 
         if (!fateRoll) {
+            return;
+        }
+
+        if (beforeRoll && (await beforeRoll()) === false) {
             return;
         }
 

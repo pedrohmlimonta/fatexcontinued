@@ -3,9 +3,13 @@ import { SkillItem } from "../skill/SkillItem";
 import { Automation } from "../../components/Automation/Automation";
 
 /**
- * Bonuses offered on the extra sheet (negative values are penalties)
+ * Bonuses offered on the extra sheet (negative values are penalties).
+ * The − and + buttons next to them go beyond these values, without limit.
  */
 export const EXTRA_BONUS_RANGE = [-4, -3, -2, -1, 0, 1, 2, 3, 4];
+
+const MIN_LISTED_BONUS = EXTRA_BONUS_RANGE[0];
+const MAX_LISTED_BONUS = EXTRA_BONUS_RANGE[EXTRA_BONUS_RANGE.length - 1];
 
 const signed = (value: number) => (value < 0 ? "-" : "+").concat(Math.abs(value).toString());
 const normalize = (value: unknown) =>
@@ -25,6 +29,15 @@ export class ExtraItem extends StuntItem {
         super.activateActorSheetListeners(html, sheet);
 
         html.find(".fatex-js-extra-roll").on("click", (e) => this._onRollExtra.call(this, e, sheet));
+    }
+
+    /**
+     * Extra sheet: the − and + buttons change the bonus by one, beyond the listed values
+     */
+    static activateListeners(html, sheet) {
+        super.activateListeners(html, sheet);
+
+        html.find(".fatex-js-extra-bonus-step").on("click", (e) => this._onStepBonus.call(this, e, sheet));
     }
 
     static async getActorSheetData(sheetData) {
@@ -71,7 +84,14 @@ export class ExtraItem extends StuntItem {
         }
 
         sheetData.skillOptions = options.map((option) => ({ ...option, selected: option.value === selected }));
-        sheetData.availableBonuses = EXTRA_BONUS_RANGE;
+
+        // A bonus beyond the listed values (set with − or +) is shown at that end of the row
+        const bonus = Number(item?.system?.bonus) || 0;
+        sheetData.availableBonuses = [
+            ...(bonus < MIN_LISTED_BONUS ? [bonus] : []),
+            ...EXTRA_BONUS_RANGE,
+            ...(bonus > MAX_LISTED_BONUS ? [bonus] : []),
+        ];
 
         return sheetData;
     }
@@ -95,6 +115,13 @@ export class ExtraItem extends StuntItem {
     }
 
     /**
+     * Fate points spent each time the extra is rolled (0 = free)
+     */
+    static getFateCost(extra) {
+        return Math.max(0, Math.round(Number(extra?.system?.fateCost) || 0));
+    }
+
+    /**
      * What the character sheet shows for a rollable extra (null if the extra isn't linked to a skill)
      */
     static getRollInfo(extra) {
@@ -104,20 +131,24 @@ export class ExtraItem extends StuntItem {
             return null;
         }
 
+        const actor = extra.actor ?? extra.parent;
         const bonus = Number(extra.system.bonus) || 0;
-        const skill = this.getLinkedSkill(extra.actor ?? extra.parent, skillName);
+        const skill = this.getLinkedSkill(actor, skillName);
         const rank = skill ? Number(skill.system.rank) || 0 : 0;
+        const fateCost = this.getFateCost(extra);
 
         const bonusLabel = bonus
             ? game.i18n.format(bonus < 0 ? "FAx.Item.Extra.Roll.Penalty" : "FAx.Item.Extra.Roll.Bonus", {
                   bonus: signed(bonus),
               })
             : "";
+        const costLabel = fateCost ? game.i18n.format("FAx.Item.Extra.Roll.Cost", { cost: fateCost }) : "";
 
         const title = [
             game.i18n.format("FAx.Item.Extra.Roll.Title", { skill: skill?.name ?? skillName }),
             skill ? `(${signed(rank)})` : "",
             bonusLabel,
+            costLabel,
         ]
             .filter(Boolean)
             .join(" ");
@@ -128,13 +159,63 @@ export class ExtraItem extends StuntItem {
             rank: signed(rank),
             bonus: bonusLabel,
             isPenalty: bonus < 0,
+            cost: costLabel,
+            cannotAfford: fateCost > (Number(actor?.system?.fatepoints?.current) || 0),
             title,
         };
+    }
+
+    /**
+     * Spends the extra's fate point cost before its roll. Returns false (and warns) if it can't be paid.
+     */
+    static async payFateCost(actor, extra, cost: number) {
+        if (cost <= 0) {
+            return true;
+        }
+
+        const escape = foundry.utils.escapeHTML;
+
+        if (!actor?.isOwner) {
+            ui.notifications.warn(
+                game.i18n.format("FAx.Item.Extra.Roll.CannotSpendFatePoints", { actor: escape(actor?.name ?? "") }),
+            );
+            return false;
+        }
+
+        const current = Number(actor.system?.fatepoints?.current) || 0;
+
+        if (current < cost) {
+            ui.notifications.warn(
+                game.i18n.format("FAx.Item.Extra.Roll.NotEnoughFatePoints", {
+                    actor: escape(actor.name),
+                    extra: escape(extra.name),
+                    cost,
+                    current,
+                }),
+            );
+            return false;
+        }
+
+        await actor.update({ "system.fatepoints.current": current - cost });
+        return true;
     }
 
     /*************************
      * EVENT HANDLER
      *************************/
+
+    static async _onStepBonus(e, sheet) {
+        e.preventDefault();
+
+        const item = sheet.document ?? sheet.item;
+        const step = Number(e.currentTarget.dataset.step) || 0;
+
+        if (!item || !step || sheet.isEditable === false) {
+            return;
+        }
+
+        await item.update({ "system.bonus": (Number(item.system.bonus) || 0) + step });
+    }
 
     static async _onRollExtra(e, sheet) {
         e.preventDefault();
@@ -147,13 +228,30 @@ export class ExtraItem extends StuntItem {
 
         const extra = sheet.actor.items.get(e.currentTarget.dataset.item);
 
-        if (extra) {
+        if (!extra) {
+            return;
+        }
+
+        // One roll at a time per extra: a double click doesn't roll (or spend fate points) twice
+        const key = `${sheet.actor.uuid ?? sheet.actor.id}.${extra.id}`;
+
+        if (this._rolling.has(key)) {
+            return;
+        }
+
+        this._rolling.add(key);
+
+        try {
             await this.rollExtra(sheet, extra, e);
+        } finally {
+            this._rolling.delete(key);
         }
     }
 
+    static _rolling = new Set<string>();
+
     /**
-     * Rolls the skill linked to an extra, adding the extra's bonus (or penalty)
+     * Rolls the skill linked to an extra, adding the extra's bonus (or penalty) and spending its fate point cost
      */
     static async rollExtra(sheet, extra, event) {
         const skillName = String(extra.system.skill ?? "").trim();
@@ -177,8 +275,12 @@ export class ExtraItem extends StuntItem {
             return;
         }
 
+        const fateCost = this.getFateCost(extra);
+
         await SkillItem.rollSkill(sheet, skill, event, {
-            extra: { name: extra.name, bonus: Number(extra.system.bonus) || 0 },
+            extra: { name: extra.name, bonus: Number(extra.system.bonus) || 0, fateCost },
+            // Paid after the roll is prepared (a magic roll may still be refused) and before the dice are rolled
+            beforeRoll: fateCost ? () => this.payFateCost(sheet.actor, extra, fateCost) : undefined,
         });
     }
 }

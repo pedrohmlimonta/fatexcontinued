@@ -15,6 +15,9 @@
                     <span class="fatex-roll__extra__bonus{{#if extraIsPenalty}} fatex-roll__extra__bonus--negative{{/if}}">{{extraBonusString}}</span>
                 {{/if}}
             </div>
+            {{#if extraFateCostLabel}}
+                <div class="fatex-roll__extra-cost">{{extraFateCostLabel}}</div>
+            {{/if}}
         {{/if}}
 
         <div class="fatex-dice {{#if is2d6Roll}}fatex-dice--2d6-roll{{/if}}">
