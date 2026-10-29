@@ -2,6 +2,9 @@
 
 ## FateX Continued
 
+### 2.0.4
+* Verified on Foundry VTT 14.369 (current stable; minimum is still v14). The changes in that Foundry release don't affect the system, so sheets, rolls, chat cards, extras, linked tokens and the world migration work the same.
+
 ### 2.0.3
 * Character tokens are linked to their actor ("Link Actor Data"): the token and the character in the Actors tab share the same sheet, so fate points, stress, consequences and everything else are the same on both. New setting "Link character tokens to their sheet", on by default.
 * New characters are created with a linked token. A link state that comes with the data (duplicates, imports, characters created from templates) is kept, so an actor deliberately unlinked for mooks stays unlinked.

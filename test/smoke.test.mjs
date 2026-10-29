@@ -67,7 +67,7 @@ describe("FateX Continued on the Foundry v14 API imitation", () => {
         const manifest = JSON.parse(fs.readFileSync(path.join(DIST, "system.json"), "utf8"));
         assert.equal(manifest.id, SYSTEM_ID);
         assert.equal(manifest.compatibility.minimum, "14");
-        assert.equal(manifest.compatibility.verified, "14.368");
+        assert.equal(manifest.compatibility.verified, "14.369");
         assert.equal(manifest.socket, true);
         assert.deepEqual(manifest.scripts, ["system.js"]);
         assert.ok(manifest.manifest.endsWith("/releases/latest/download/system.json"));

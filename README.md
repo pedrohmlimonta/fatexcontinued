@@ -1,10 +1,10 @@
 # FateX Continued
 
-**Continuação comunitária do [FateX](https://github.com/anvil-vtt/FateX)** — o sistema de Fate estendido para o Foundry VTT criado por Patrick Bauer — atualizado para o **Foundry VTT v14** (verificado na build **14.368**).
+**Continuação comunitária do [FateX](https://github.com/anvil-vtt/FateX)** — o sistema de Fate estendido para o Foundry VTT criado por Patrick Bauer — atualizado para o **Foundry VTT v14** (verificado na build **14.369**).
 
 O FateX Continued permite jogar **qualquer jogo de Fate**: vem com opções prontas para **Fate Core, Fate Acelerado e Fate Condensado**, e pode ser adaptado a todos os seus derivados. Você define seus próprios aspectos, listas de perícias, barras de estresse, consequências, condições, façanhas e extras, e usa o **sistema de modelos de ator** para ter fichas-base diferentes para PJs, PdMs, monstros e o que mais quiser.
 
-> **English:** FateX Continued is a community continuation of FateX, updated for Foundry VTT v14 (verified on 14.368). The system id is `fatexcontinued`. Install it with the manifest URL below. Worlds created with the original `fatex` system can be migrated (see *Vindo do FateX original*).
+> **English:** FateX Continued is a community continuation of FateX, updated for Foundry VTT v14 (verified on 14.369). The system id is `fatexcontinued`. Install it with the manifest URL below. Worlds created with the original `fatex` system can be migrated (see *Vindo do FateX original*).
 
 ## Instalação
 
@@ -14,7 +14,7 @@ No Foundry: **Game Systems → Install System**, cole no campo **Manifest URL** 
 https://github.com/pedrohmlimonta/fatexcontinued/releases/latest/download/system.json
 ```
 
-Requisito: Foundry VTT **v14** (verificado na build 14.368).
+Requisito: Foundry VTT **v14** (verificado na build 14.369).
 
 ## Vindo do FateX original (mundos existentes)
 
@@ -77,7 +77,7 @@ nas configurações do sistema, ligada por padrão.
 
 ## O que mudou em relação ao FateX 1.5.4
 
-- Compatível com o Foundry VTT v14.368 (compatibilidade mínima: v14).
+- Compatível com o Foundry VTT v14.369 (compatibilidade mínima: v14).
 - Extras podem ser ligados a uma perícia, com bônus ou penalidade, e rolados direto da ficha (veja acima).
 - Tokens de personagem ligados à ficha da aba Atores por padrão (veja acima).
 - Novo id `fatexcontinued`: caminhos, flags, configurações e canal de socket foram renomeados.
