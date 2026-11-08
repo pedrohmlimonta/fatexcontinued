@@ -19,7 +19,10 @@ export class FateRoll extends FateRollDataModel {
         {
             magic = false,
             extra = null,
-        }: { magic?: boolean; extra?: { name: string; bonus: number; fateCost?: number } | null } = {},
+        }: {
+            magic?: boolean;
+            extra?: { name: string; bonus: number; fateCost?: number; power?: string; description?: string } | null;
+        } = {},
     ) {
         const actor = skill.actor ?? null;
         const options = {
@@ -28,13 +31,22 @@ export class FateRoll extends FateRollDataModel {
             actorUuid: actor?.uuid ?? null,
         };
 
-        // Rolled through an extra: its bonus (or penalty) starts in the roll's bonus, and its name (and the fate
-        // points it cost) are shown on the card
+        // Rolled through an extra: its bonus (or penalty) starts in the roll's bonus, and its name (with its power,
+        // for a power's stunt), the fate points it cost and its description are shown on the card
         const extraBonus = extra ? Number(extra.bonus) || 0 : 0;
 
         if (extra) {
             const fateCost = Math.max(0, Math.round(Number(extra.fateCost) || 0));
-            options["extra"] = { name: String(extra.name ?? ""), bonus: extraBonus, ...(fateCost ? { fateCost } : {}) };
+            const power = String(extra.power ?? "").trim();
+            const description = String(extra.description ?? "").trim();
+
+            options["extra"] = {
+                name: String(extra.name ?? ""),
+                bonus: extraBonus,
+                ...(fateCost ? { fateCost } : {}),
+                ...(power ? { power } : {}),
+                ...(description ? { description } : {}),
+            };
         }
 
         if (game.settings.get(SYSTEM_ID, "guildCodexMagicSystemEnabled") && magic) {

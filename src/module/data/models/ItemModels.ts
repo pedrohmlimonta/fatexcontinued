@@ -133,6 +133,8 @@ export class ExtraDataModel extends TypeDataModel {
                 min: 0,
                 initial: 0,
             }),
+            // Power this extra belongs to, as one of its stunts: id of another extra of the same character
+            power: stringField(""),
         };
     }
 

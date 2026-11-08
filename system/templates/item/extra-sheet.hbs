@@ -14,6 +14,29 @@
     field = system.shortDescription
 }}
 
+{{#if powerSetting}}
+    <div class="fatex-setting">
+        <header class="fatex-headline">
+            <h3 class="fatex-headline__text">{{localize "FAx.Item.Extra.Power.Label"}}</h3>
+        </header>
+
+        {{#if powerSetting.isPower}}
+            <span class="fatex-text-input__setting-label fatex-extra-power-info">{{powerSetting.text}}</span>
+        {{else}}
+            <label>
+                <select class="fatex-extra-skill-select fatex-extra-power-select" name="system.power">
+                    <option value="">{{localize "FAx.Item.Extra.Power.None"}}</option>
+                    {{#each powerSetting.options as |option|}}
+                        <option value="{{option.value}}"{{#if option.selected}} selected="selected"{{/if}}>{{option.label}}</option>
+                    {{/each}}
+                </select>
+
+                <span class="fatex-text-input__setting-label">{{localize "FAx.Item.Extra.Power.Help"}}</span>
+            </label>
+        {{/if}}
+    </div>
+{{/if}}
+
 <div class="fatex-setting">
     <header class="fatex-headline">
         <h3 class="fatex-headline__text">{{localize "FAx.Item.Extra.Skill"}}</h3>

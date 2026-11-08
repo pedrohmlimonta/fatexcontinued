@@ -1,5 +1,6 @@
 import { SYSTEM_ID } from "../../constants";
 import { LinkedTokensFeature } from "../features/LinkedTokensFeature";
+import { FatePointsNameFeature } from "../features/FatePointsNameFeature";
 
 /**
  * Registers all settings of the system.
@@ -7,6 +8,17 @@ import { LinkedTokensFeature } from "../features/LinkedTokensFeature";
  */
 export class FateXSettings {
     static registerSettings() {
+        // Another name for fate points (empty: the translated "Fate Points"), used everywhere they are mentioned
+        game.settings.register(SYSTEM_ID, FatePointsNameFeature.SETTING, {
+            name: "FAx.Settings.FatePointsName.Name",
+            hint: "FAx.Settings.FatePointsName.Hint",
+            scope: "world",
+            config: true,
+            type: String,
+            default: "",
+            onChange: () => FatePointsNameFeature.apply({ render: true }),
+        });
+
         game.settings.register(SYSTEM_ID, "enableAlphaFeatures", {
             name: "FAx.Settings.System.Alpha.Name",
             hint: "FAx.Settings.System.Alpha.Hint",

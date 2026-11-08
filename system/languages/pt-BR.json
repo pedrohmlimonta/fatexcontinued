@@ -151,6 +151,21 @@
                     "SpentMany": "gastou {cost} pontos de destino",
                     "NotEnoughFatePoints": "{actor} não tem pontos de destino suficientes para \"{extra}\" (custa {cost}, tem {current}).",
                     "CannotSpendFatePoints": "Você não pode gastar os pontos de destino de {actor}."
+                },
+                "Power": {
+                    "Label": "Poder",
+                    "None": "— Nenhum (extra independente) —",
+                    "Help": "Torna este extra uma das façanhas do poder escolhido, listada embaixo dele na ficha. Qualquer extra que não seja façanha pode ser um poder",
+                    "IsPower": "Este extra é um poder com {stunts}. Para mudar as façanhas dele, escolha o poder na ficha de cada façanha",
+                    "AddStunt": "Adicionar uma façanha a este poder",
+                    "NewStunt": "Nova façanha",
+                    "StuntCountOne": "1 façanha",
+                    "StuntCountMany": "{count} façanhas",
+                    "DeleteText": "<strong>{power}</strong> é um poder com {stunts}. Excluir só o poder deixa as façanhas na ficha como extras independentes.",
+                    "DeleteOnlyPower": "Só o poder",
+                    "DeleteWithStunts": "O poder e as façanhas",
+                    "AlreadyPower": "{extra} é um poder com {stunts}, então não pode virar façanha de outro poder. As outras mudanças foram salvas.",
+                    "TargetIsStunt": "{power} é uma façanha, então não pode ter façanhas. As outras mudanças foram salvas."
                 }
             },
             "Reference": {
@@ -256,6 +271,10 @@
                 "Name": "Tokens de personagem ligados à ficha",
                 "Hint": "O token e o personagem da aba Atores usam a mesma ficha (pontos de destino, estresse, consequências…). Personagens novos já nascem assim, e ao ligar esta opção os personagens e tokens que já existem também são ligados (o que foi mudado só no token é substituído pela ficha do personagem). Para capangas com vários tokens do mesmo personagem, desmarque \"Vincular dados do ator\" no token padrão desse personagem.",
                 "Done": "{actors} personagem(ns) e {tokens} token(s) agora usam a mesma ficha da aba Atores."
+            },
+            "FatePointsName": {
+                "Name": "Nome dos pontos de destino",
+                "Hint": "Outro nome para os pontos de destino, usado em todo lugar em que eles aparecem: ficha, extras, cartas no chat, avisos e o módulo FateX Continued Themes. Por exemplo: Energia Amaldiçoada, Pontos de Poder, Nen. Deixe vazio para usar \"Pontos de Destino\"."
             }
         },
         "Template": {
@@ -292,6 +311,17 @@
         },
         "Sheets": {
             "Reference": "Ficha de referência"
+        },
+        "FatePointsName": {
+            "Sheet": "{fatePoints}",
+            "FateCost": "Custo em {fatePoints}",
+            "FateCostHelp": "Quanto de {fatePoints} cada rolagem feita pelo extra gasta (0 = não gasta). Sem o suficiente, a rolagem não acontece",
+            "RollCost": "custa {cost} de {fatePoints}",
+            "SpentOne": "gastou 1 de {fatePoints}",
+            "SpentMany": "gastou {cost} de {fatePoints}",
+            "NotEnough": "{actor} não pode usar \"{extra}\": custa {cost} de {fatePoints} e só tem {current}.",
+            "CannotSpend": "Você não pode gastar {fatePoints} de {actor}.",
+            "LinkTokensHint": "O token e o personagem da aba Atores usam a mesma ficha ({fatePoints}, estresse, consequências…). Personagens novos já nascem assim, e ao ligar esta opção os personagens e tokens que já existem também são ligados (o que foi mudado só no token é substituído pela ficha do personagem). Para capangas com vários tokens do mesmo personagem, desmarque \"Vincular dados do ator\" no token padrão desse personagem."
         }
     },
     "TYPES": {

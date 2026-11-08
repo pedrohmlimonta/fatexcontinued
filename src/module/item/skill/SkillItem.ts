@@ -131,7 +131,8 @@ export class SkillItem extends BaseItem {
 
     /**
      * Rolls a skill and sends the result to the chat.
-     * When rolled through an extra, the extra's name, bonus (or penalty) and fate point cost are added to the roll.
+     * When rolled through an extra, the extra's name, bonus (or penalty), fate point cost, power and description are
+     * added to the roll.
      * beforeRoll runs once the roll is prepared (e.g. to pay that cost); returning false cancels the roll.
      */
     static async rollSkill(
@@ -142,7 +143,7 @@ export class SkillItem extends BaseItem {
             extra,
             beforeRoll,
         }: {
-            extra?: { name: string; bonus: number; fateCost?: number };
+            extra?: { name: string; bonus: number; fateCost?: number; power?: string; description?: string };
             beforeRoll?: () => Promise<boolean> | boolean;
         } = {},
     ) {

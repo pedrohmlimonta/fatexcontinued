@@ -37,6 +37,13 @@
     &__fate-points {
         display: flex;
         flex-direction: column-reverse;
+
+        // A long custom name for fate points is cut (the whole name shows on hover)
+        .fatex-header__label {
+            max-width: 240px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     }
 
     &__label {

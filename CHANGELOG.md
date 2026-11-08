@@ -2,6 +2,25 @@
 
 ## FateX Continued
 
+### 2.0.5
+**Powers: extras grouped as stunts**
+* Extras can be grouped into a power: the power is an extra, and the other extras of the group are its stunts, listed under it on the Extras tab. A power's headline shows how many stunts it has, and collapsing it hides its description and its stunts.
+* In edit mode, the layers icon on an extra's headline ("Add a stunt to this power") creates a new stunt in it. The extra's sheet has a new "Power" field to put an existing extra into a power, or take it out.
+* One level only: stunts can't have stunts, and a power that has stunts can't go into another power. This holds for every change (a sheet left open, a macro): the power stays as it was, with a warning, and the rest of the change is saved. A stunt whose power is gone (deleted, or the stunt was moved to another character) shows as an extra on its own. Dragging only reorders extras; it doesn't move them into or out of a power.
+* Deleting a power that has stunts asks whether to delete only the power (its stunts stay on the sheet as extras on their own) or the power and its stunts.
+* Each stunt is still a full extra (skill, bonus, fate point cost, description) and rolls the same way. The power is stored in the new `system.power` field of the extra (the id of the power); existing extras are on their own.
+
+**The extra's description in its roll card**
+* A roll made through an extra shows the extra's description under the roll, in the same chat message, to everyone who sees the card. It's rendered once, at the roll, without its secret blocks (also with the markdown setting on), and +2 and rerolls keep it. Private and blind rolls keep it hidden like the rest of the card.
+* A stunt's card also names its power before the stunt ("Power › Stunt").
+* Cards of earlier rolls look the same as before.
+
+**A custom name for fate points**
+* New setting "Fate points name" (a text field, empty by default): another name for fate points ("Cursed Energy", "Power Points", "Nen"…) used everywhere they are mentioned — the sheet's header (and the tooltip of a group member's fate point field), the extra's sheet and its line on the character sheet, the roll card and the warnings when the cost can't be paid.
+* The texts with a custom name are written to work with any name, without singular/plural or abbreviations ("costs 2 Nen", "spent 1 Nen"). Empty, the original translated texts are used.
+* The change applies right away and re-renders the open sheets. Cards already in the chat keep their text until they are updated by +2 or a reroll.
+* Modules can add their own texts to `CONFIG.FateX.fatePointTexts` (text key → key of a version with `{fatePoints}`) in their init hook; FateX Continued Themes 0.0.9 does it for its new session button and its cost dialog.
+
 ### 2.0.4
 * Verified on Foundry VTT 14.369 (current stable; minimum is still v14). The changes in that Foundry release don't affect the system, so sheets, rolls, chat cards, extras, linked tokens and the world migration work the same.
 

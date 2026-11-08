@@ -1,0 +1,71 @@
+// Powers: an extra and its stunts (other extras) listed under it, hanging from a line in the sheet's color.
+// The chat card names the power before the stunt and shows the extra's description under the roll.
+// Colors are inherited, so sheet and chat themes apply to them too.
+
+.fatex-power__stunts {
+    display: grid;
+    gap: $component-padding;
+    margin: $component-padding * 0.5 0 0 $component-padding;
+    padding: 2px 0 2px $component-padding;
+    border-left: 3px solid $fatex-primary-color;
+}
+
+.fatex-headline--power-stunt .fatex-headline__text {
+    font-size: 12px;
+}
+
+.fatex-extra__power-tag {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 0 6px;
+    border: 1px solid currentColor;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: normal;
+    line-height: 1.5;
+    text-transform: none;
+    vertical-align: middle;
+    opacity: 0.85;
+}
+
+.fatex-extra-power-info {
+    display: block;
+}
+
+.fatex-roll__extra__power {
+    font-weight: normal;
+}
+
+.fatex-roll__extra__separator {
+    font-size: 11px;
+    opacity: 0.7;
+}
+
+.fatex-roll__description {
+    margin: 2px 4px 0;
+    padding: 6px 6px 2px;
+    border-top: 1px solid rgba(127, 127, 127, 0.35);
+    font-size: 13px;
+    line-height: 1.4;
+    text-align: left;
+    overflow-wrap: anywhere;
+
+    p {
+        margin: 0 0 6px;
+    }
+
+    p:last-child {
+        margin-bottom: 0;
+    }
+
+    img,
+    video,
+    iframe {
+        max-width: 100%;
+    }
+
+    img,
+    video {
+        height: auto;
+    }
+}

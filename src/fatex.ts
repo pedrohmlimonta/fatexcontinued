@@ -42,6 +42,7 @@ import { ACTOR_DATA_MODELS } from "./module/data/models/ActorModels";
 import { ITEM_DATA_MODELS } from "./module/data/models/ItemModels";
 import { Migration } from "./module/migration/Migration";
 import { LinkedTokensFeature } from "./module/features/LinkedTokensFeature";
+import { FatePointsNameFeature } from "./module/features/FatePointsNameFeature";
 
 /* -------------------------------- */
 /*	System initialization			*/
@@ -139,6 +140,7 @@ MagicSystem.hooks();
 Roll2d6Feature.hooks();
 Migration.hooks();
 LinkedTokensFeature.hooks();
+FatePointsNameFeature.hooks();
 
 /* -------------------------------- */
 /*	Webpack HMR (development only)  */

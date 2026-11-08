@@ -436,8 +436,11 @@ export function createEnvironment({ settings = {}, worldSettings = [], language 
     };
 
     const translations = JSON.parse(fs.readFileSync(path.join(DIST, "languages", `${language}.json`), "utf8"));
+    // Like Foundry: English is the fallback for keys a language doesn't have; flat keys (as in module files) work too
+    const fallback = JSON.parse(fs.readFileSync(path.join(DIST, "languages", "en.json"), "utf8"));
+    const lookup = (source, key) => (Object.hasOwn(source, key) ? source[key] : getProperty(source, key));
     const localize = (key) => {
-        const value = getProperty(translations, key);
+        const value = lookup(translations, key) ?? lookup(fallback, key);
         return typeof value === "string" ? value : key;
     };
 
@@ -582,6 +585,11 @@ export function createEnvironment({ settings = {}, worldSettings = [], language 
         async update(changes = {}, options = {}) {
             log.updates.push({ uuid: this.uuid, changes: deepClone(changes), options });
             const expanded = expandObject(deepClone(changes));
+            // Like Foundry, the document may adjust (or refuse) the change first
+            if (typeof this._preUpdate === "function") {
+                const allowed = await this._preUpdate(expanded, options, game.user);
+                if (allowed === false) return this;
+            }
             mergeObject(this._source, expanded);
             this._initialize();
             this.prepareData?.();
@@ -682,7 +690,12 @@ export function createEnvironment({ settings = {}, worldSettings = [], language 
                 const item = this.items.get(update._id);
                 if (!item) throw new Error(`Item ${update._id} does not exist`);
                 const { _id, ...changes } = update;
-                mergeObject(item._source, expandObject(deepClone(changes)));
+                const expanded = expandObject(deepClone(changes));
+                if (typeof item._preUpdate === "function") {
+                    const allowed = await item._preUpdate(expanded, options, game.user);
+                    if (allowed === false) continue;
+                }
+                mergeObject(item._source, expanded);
                 item._initialize();
             }
             this._syncItemsSource();
@@ -973,6 +986,8 @@ export function createEnvironment({ settings = {}, worldSettings = [], language 
         system: { id: SYSTEM_ID, version: "2.0.0" },
         i18n: {
             lang: language,
+            translations,
+            _fallback: fallback,
             localize,
             format: (key, data = {}) => localize(key).replace(/{(\w+)}/g, (_m, k) => data[k] ?? ""),
         },
@@ -1033,6 +1048,13 @@ export function createEnvironment({ settings = {}, worldSettings = [], language 
                         log.notifications.push(["dialog", config]);
                         return window.__dialogAnswer ?? true;
                     },
+                    // Answers with the action in window.__dialogWait (null: the dialog was closed)
+                    wait: async (config) => {
+                        log.notifications.push(["dialog", config]);
+                        const answer = window.__dialogWait ?? null;
+                        window.__dialogWait = null;
+                        return answer;
+                    },
                 },
             },
             apps: {
@@ -1060,11 +1082,17 @@ export function createEnvironment({ settings = {}, worldSettings = [], language 
             ux: {
                 TextEditor: {
                     implementation: {
-                        enrichHTML: async (content) =>
-                            String(content ?? "").replace(
+                        // Like Foundry: content links are rendered, and secrets are left out unless asked for
+                        enrichHTML: async (content, options = {}) => {
+                            let html = String(content ?? "").replace(
                                 /@UUID\[([^\]]+)\]\{([^}]+)\}/g,
                                 '<a class="content-link" data-uuid="$1">$2</a>',
-                            ),
+                            );
+                            if (!options.secrets) {
+                                html = html.replace(/<section[^>]*class="[^"]*\bsecret\b[^"]*"[^>]*>[\s\S]*?<\/section>/gi, "");
+                            }
+                            return html;
+                        },
                         getDragEventData: (event) => {
                             try {
                                 return JSON.parse(event.dataTransfer.getData("text/plain"));

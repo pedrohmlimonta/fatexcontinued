@@ -70,6 +70,7 @@ interface ExtraData {
     skill: string;
     bonus: number;
     fateCost: number;
+    power: string;
 }
 
 export interface ExtraItemData {

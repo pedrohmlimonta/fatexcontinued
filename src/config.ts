@@ -45,6 +45,12 @@ export interface FatexConfig {
         useMarkdown: boolean;
     };
 
+    /**
+     * Texts that mention fate points (text key → key of its version with the {fatePoints} placeholder), swapped when
+     * the fate points get a custom name in the settings. Modules can add their own texts here in their init hook.
+     */
+    fatePointTexts: Record<string, string>;
+
     migrateWorld?: (options?: { force?: boolean }) => Promise<void>;
 }
 
@@ -78,5 +84,16 @@ export const FateX: FatexConfig = {
     },
     global: {
         useMarkdown: false,
+    },
+    fatePointTexts: {
+        "FAx.Sheet.FatePoints": "FAx.FatePointsName.Sheet",
+        "FAx.Item.Extra.FateCost": "FAx.FatePointsName.FateCost",
+        "FAx.Item.Extra.FateCostHelp": "FAx.FatePointsName.FateCostHelp",
+        "FAx.Item.Extra.Roll.Cost": "FAx.FatePointsName.RollCost",
+        "FAx.Item.Extra.Roll.SpentOne": "FAx.FatePointsName.SpentOne",
+        "FAx.Item.Extra.Roll.SpentMany": "FAx.FatePointsName.SpentMany",
+        "FAx.Item.Extra.Roll.NotEnoughFatePoints": "FAx.FatePointsName.NotEnough",
+        "FAx.Item.Extra.Roll.CannotSpendFatePoints": "FAx.FatePointsName.CannotSpend",
+        "FAx.Settings.LinkCharacterTokens.Hint": "FAx.FatePointsName.LinkTokensHint",
     },
 };

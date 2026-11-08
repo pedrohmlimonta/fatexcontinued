@@ -10,6 +10,10 @@
     <div class="fatex-roll" data-token-id="{{token.id}}">
         {{#if options.extra}}
             <div class="fatex-roll__extra">
+                {{#if options.extra.power}}
+                    <span class="fatex-roll__extra__power">{{options.extra.power}}</span>
+                    <i class="fatex-roll__extra__separator fas fa-angle-right" aria-hidden="true"></i>
+                {{/if}}
                 <span class="fatex-roll__extra__name">{{options.extra.name}}</span>
                 {{#if extraBonusString}}
                     <span class="fatex-roll__extra__bonus{{#if extraIsPenalty}} fatex-roll__extra__bonus--negative{{/if}}">{{extraBonusString}}</span>
@@ -46,4 +50,9 @@
             <button data-action="increase">+2</button>
         </div>
     </div>
+
+    {{!-- Description of the extra the roll was made through, in the same card --}}
+    {{#if options.extra.description}}
+        <div class="fatex-roll__description">{{{options.extra.description}}}</div>
+    {{/if}}
 </div>

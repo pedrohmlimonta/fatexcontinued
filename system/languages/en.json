@@ -159,6 +159,21 @@
                     "SpentMany": "spent {cost} fate points",
                     "NotEnoughFatePoints": "{actor} doesn't have enough fate points for \"{extra}\" (costs {cost}, has {current}).",
                     "CannotSpendFatePoints": "You can't spend the fate points of {actor}."
+                },
+                "Power": {
+                    "Label": "Power",
+                    "None": "— None (extra on its own) —",
+                    "Help": "Makes this extra one of the stunts of the chosen power, listed under it on the character sheet. Any extra that isn't a stunt can be a power",
+                    "IsPower": "This extra is a power with {stunts}. To change its stunts, choose the power on each stunt's sheet",
+                    "AddStunt": "Add a stunt to this power",
+                    "NewStunt": "New stunt",
+                    "StuntCountOne": "1 stunt",
+                    "StuntCountMany": "{count} stunts",
+                    "DeleteText": "<strong>{power}</strong> is a power with {stunts}. Deleting only the power keeps its stunts on the sheet as extras on their own.",
+                    "DeleteOnlyPower": "Only the power",
+                    "DeleteWithStunts": "The power and its stunts",
+                    "AlreadyPower": "{extra} is a power with {stunts}, so it can't become a stunt of another power. The other changes were saved.",
+                    "TargetIsStunt": "{power} is a stunt, so it can't have stunts of its own. The other changes were saved."
                 }
             },
             "Reference": {
@@ -262,6 +277,10 @@
                 "Name": "Link character tokens to their sheet",
                 "Hint": "The token and the character in the Actors tab share the same sheet (fate points, stress, consequences…). New characters are created like this, and turning this on also links the characters and tokens that already exist (changes made only on a token are replaced by the character's sheet). For mooks with several tokens of the same character, uncheck \"Link Actor Data\" in that character's prototype token.",
                 "Done": "{actors} character(s) and {tokens} token(s) now share the sheet of the Actors tab."
+            },
+            "FatePointsName": {
+                "Name": "Fate points name",
+                "Hint": "Another name for fate points, used everywhere they appear: the sheet, extras, chat cards, warnings and the FateX Continued Themes module. For example: Cursed Energy, Power Points, Nen. Leave it empty to use \"Fate Points\"."
             }
         },
         "Template": {
@@ -290,6 +309,17 @@
             "Complete": "FateX Continued: world migration finished.",
             "CompleteWithErrors": "FateX Continued: world migration finished with errors. Check the browser console (F12) for details.",
             "GMOnly": "Only a GM can migrate the world."
+        },
+        "FatePointsName": {
+            "Sheet": "{fatePoints}",
+            "FateCost": "{fatePoints} cost",
+            "FateCostHelp": "How much {fatePoints} each roll made through the extra spends (0 = free). Without enough, the roll doesn't happen",
+            "RollCost": "costs {cost} {fatePoints}",
+            "SpentOne": "spent 1 {fatePoints}",
+            "SpentMany": "spent {cost} {fatePoints}",
+            "NotEnough": "{actor} can't use \"{extra}\": it costs {cost} {fatePoints} and they have {current}.",
+            "CannotSpend": "You can't spend the {fatePoints} of {actor}.",
+            "LinkTokensHint": "The token and the character in the Actors tab share the same sheet ({fatePoints}, stress, consequences…). New characters are created like this, and turning this on also links the characters and tokens that already exist (changes made only on a token are replaced by the character's sheet). For mooks with several tokens of the same character, uncheck \"Link Actor Data\" in that character's prototype token."
         }
     },
     "TYPES": {

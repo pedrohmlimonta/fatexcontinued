@@ -50,7 +50,9 @@ Um extra pode ser ligado a uma perícia do personagem e ter um bônus (ou penali
    ou nessa linha** para rolar — igual a clicar numa perícia (Shift rola os dados mágicos, o modo 2d6 e o Dice So
    Nice continuam valendo). No modo de edição da ficha, só a linha rola.
 4. A carta no chat mostra a perícia e, logo abaixo, o extra e o bônus dele. O bônus já entra no total, e o +2 e o
-   rolar de novo continuam funcionando.
+   rolar de novo continuam funcionando. Se o extra tiver descrição, ela aparece embaixo da rolagem, na mesma
+   mensagem, para todos que veem a carta. Os blocos secretos da descrição (botão de segredo do editor) ficam de
+   fora; para esconder a descrição inteira, role no modo privado ou às cegas.
 5. Se o extra tiver custo, ao rolar o sistema confere se o personagem tem pontos de destino suficientes, gasta e
    então rola (a carta mostra "gastou N pontos de destino"). Sem pontos suficientes, aparece um aviso e nada é
    rolado nem gasto. Na ficha, o custo aparece ao lado da perícia ("custa 2 PD"), em vermelho quando não dá para
@@ -59,6 +61,46 @@ Um extra pode ser ligado a uma perícia do personagem e ter um bônus (ou penali
 A perícia é guardada pelo nome (como nas automações de perícias), então o extra funciona em qualquer personagem que
 tenha uma perícia com esse nome. Se o personagem não tiver, a ficha avisa ("não existe nesta ficha") e o clique não
 rola.
+
+## Poderes: extras agrupados como façanhas
+
+Vários extras podem ser agrupados num **poder**: o poder é um extra, e cada extra do grupo vira uma **façanha** dele,
+listada embaixo do poder na aba **Extras** (por exemplo, o poder "Ilimitado" com as façanhas "Azul", "Vermelho" e
+"Vazio Roxo").
+
+1. Crie o extra do poder (o **+** no fim da aba, com o Modo de Edição ligado). Ele pode ter descrição, perícia, bônus
+   e custo como qualquer extra — ou ficar só com o nome.
+2. Ainda no Modo de Edição, clique no ícone de camadas no título do poder (**Adicionar uma façanha a este poder**):
+   nasce uma façanha nova dentro dele, já com a configuração aberta. Para pôr um extra que já existe num poder,
+   abra a configuração dele (engrenagem) e escolha o poder em **Poder**.
+3. Cada façanha continua sendo um extra completo: tem a própria perícia, bônus, custo e descrição, e rola do mesmo
+   jeito. A carta no chat mostra o poder antes do nome da façanha ("Ilimitado › Vermelho") e a descrição da façanha
+   embaixo da rolagem.
+
+- O título do poder mostra quantas façanhas ele tem. Recolher o poder (a seta) esconde a descrição e as façanhas.
+- Para tirar uma façanha do poder, escolha **— Nenhum (extra independente) —** em **Poder**. Arrastar só muda a
+  ordem: não põe nem tira extras de um poder.
+- É um nível só: uma façanha não tem façanhas, e um poder que já tem façanhas não entra em outro poder (se uma ficha
+  aberta há tempo ou uma macro tentar, o poder fica como estava, com um aviso, e o resto da mudança é salvo).
+- Ao excluir um poder com façanhas, o sistema pergunta: **Só o poder** (as façanhas ficam na ficha como extras
+  independentes) ou **O poder e as façanhas**.
+- Se o poder de uma façanha sumir (excluído ou fora da ficha, como num extra arrastado para outro personagem), ela
+  aparece como extra independente — nada some da ficha.
+
+## Nome dos pontos de destino
+
+Nas configurações do sistema (**Configurar opções** → FateX Continued), o campo **Nome dos pontos de destino** troca
+"Pontos de Destino" pelo nome que você quiser — "Energia Amaldiçoada", "Pontos de Poder", "Nen"… — em todo lugar em
+que eles aparecem:
+
+- no cabeçalho da ficha (e na dica do campo de pontos dos membros de um grupo);
+- na ficha do extra ("Custo em Energia Amaldiçoada") e na linha do extra na ficha ("custa 2 de Energia Amaldiçoada");
+- na carta da rolagem ("gastou 1 de Energia Amaldiçoada") e nos avisos de quando não dá para pagar;
+- no módulo FateX Continued Themes: botão de nova sessão e diálogo "Pagar custo".
+
+A mudança vale na hora para todos (fichas abertas são redesenhadas). Cartas que já estavam no chat mantêm o texto
+de quando foram roladas, até alguém usar o +2 ou rolar de novo nelas. Deixe o campo vazio para voltar ao nome
+padrão, que acompanha o idioma do Foundry.
 
 ## Tokens ligados à ficha
 
@@ -79,6 +121,8 @@ nas configurações do sistema, ligada por padrão.
 
 - Compatível com o Foundry VTT v14.369 (compatibilidade mínima: v14).
 - Extras podem ser ligados a uma perícia, com bônus ou penalidade, e rolados direto da ficha (veja acima).
+- Extras podem ser agrupados em poderes, com cada extra sendo uma façanha do poder (veja acima).
+- Os pontos de destino podem ter outro nome, escolhido nas configurações (veja acima).
 - Tokens de personagem ligados à ficha da aba Atores por padrão (veja acima).
 - Novo id `fatexcontinued`: caminhos, flags, configurações e canal de socket foram renomeados.
 - `template.json` (depreciado no v14) foi substituído por `documentTypes` no `system.json` + *TypeDataModels*,
